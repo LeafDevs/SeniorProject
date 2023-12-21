@@ -1,0 +1,13 @@
+target/
+
+.classpath
+.project
+.settings/
+
+libs/
+
+.DS_Store
+
+*.jar
+
+.vscode/
