@@ -3,6 +3,10 @@ package me.leaf.devs.events;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import me.leaf.devs.utils.ActionBar;
+import me.leaf.devs.utils.DataUtils;
+import me.leaf.devs.utils.PClass;
+
 public class PlayerJoinEvent implements Listener{
     
     @EventHandler
@@ -13,6 +17,10 @@ public class PlayerJoinEvent implements Listener{
         } else {
             me.leaf.devs.utils.DataUtils.loadPlayerData(plr);
         }
+
+
+
+        new ActionBar(DataUtils.getPlayerData(plr));
     }
 
 }

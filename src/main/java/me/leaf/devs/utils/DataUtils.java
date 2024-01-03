@@ -33,7 +33,7 @@ public class DataUtils {
     }
 
     public static void loadPlayerData(Player plr) {
-        File file = new File(Main.getPlugin().getDataFolder(),  "playerData", plr.getUniqueId().toString() + ".yml");
+        File file = new File(Main.getPlugin().getDataFolder() + File.separator + "playerData" + File.separator + plr.getUniqueId().toString() + ".yml");
         if (file.exists()) {
             FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
             int health = fileConfiguration.getInt("health");
@@ -54,12 +54,20 @@ public class DataUtils {
             int enchanting_level = fileConfiguration.getInt("skills.enchanting.level");
             int alchemy_level = fileConfiguration.getInt("skills.alchemy.level");
 
-            playerData.put(plr.getUniqueId().toString(), new PClass(health, defense, strength, speed, mana, luck, level, xp, crit_damage, crit_chance, magic_damage, combat_xp, enchanting_xp, alchemy_xp, combat_level, enchanting_level, alchemy_level));
+            playerData.put(plr.getUniqueId().toString(), new PClass(health, defense, strength, speed, mana, luck, level, xp, crit_damage, crit_chance, magic_damage, combat_xp, enchanting_xp, alchemy_xp, combat_level, enchanting_level, alchemy_level, plr));
+        }
+    }
+
+    public static PClass getPlayerData(Player plr) {
+        if (playerData.containsKey(plr.getUniqueId().toString())) {
+            return playerData.get(plr.getUniqueId().toString());
+        } else {
+            return null;
         }
     }
 
     public static void createPlayerData(Player plr) {
-        File file = new File(Main.getPlugin().getDataFolder(),  "playerData", plr.getUniqueId().toString() + ".yml");
+        File file = new File(Main.getPlugin().getDataFolder() + File.separator + "playerData" + File.separator + plr.getUniqueId().toString() + ".yml");
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
@@ -99,15 +107,14 @@ public class DataUtils {
             fileConfiguration.set("skills.enchanting.level", 1);
             fileConfiguration.set("skills.alchemy.level", 1);
 
-            playerData.put(plr.getUniqueId().toString(), new PClass(100, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0));
+            playerData.put(plr.getUniqueId().toString(), new PClass(100, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0, plr));
 
             try {
                 fileConfiguration.save(file);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Main.getPlugin().saveResource("playerData/" + plr.getUniqueId().toString() + ".yml", false);
+            Main.getPlugin().saveResource("playerData" + File.separator + plr.getUniqueId().toString() + ".yml", false);
         }
     }
-
 }

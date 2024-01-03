@@ -1,3 +1,5 @@
+package me.leaf.devs.utils;
+
 public enum Rarity {
     COMMON("§fCommon", "§f"),
     UNCOMMON("§aUncommon", "§a"),

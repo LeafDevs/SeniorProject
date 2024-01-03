@@ -1,8 +1,10 @@
 package me.leaf.devs.utils;
 
+import org.bukkit.entity.Player;
+
 public class PClass {
     
-    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level) {
+    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, Player plr) {
         this.health = health;
         this.defense = defense;
         this.strength = strength;
@@ -20,6 +22,7 @@ public class PClass {
         this.combat_level = combat_level;
         this.enchanting_level = enchanting_level;
         this.alchemy_level = alchemy_level;
+        this.plr = plr;
     }
 
     private int health;
@@ -39,6 +42,11 @@ public class PClass {
     private int combat_level;
     private int enchanting_level;
     private int alchemy_level;
+    private Player plr;
+
+    public Player getPlayer() {
+        return plr;
+    }
 
     public int getHealth() {
         return health;

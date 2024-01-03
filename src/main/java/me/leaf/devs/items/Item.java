@@ -1,13 +1,17 @@
 package me.leaf.devs.items;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import me.leaf.devs.items.ItemType;
 
 import me.leaf.devs.utils.Rarity;
 
 public class Item {
-    public Item(String name, int damage, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, String... description) {
+    public Item(String name, int damage, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, ItemType type, String... description) {
         this.name = name;
         this.damage = damage;
         this.strength = strength;
@@ -80,7 +84,7 @@ public class Item {
     }
 
 
-    public Item createItem() {
+    public ItemStack createItem() {
         
         ItemMeta meta = item.getItemMeta();
 
@@ -122,13 +126,16 @@ public class Item {
 
 
         lore.add("§7");
-        lore.add(getDescription());
+        getDescription().forEach(line -> lore.add(line));
         lore.add("§7");
         lore.add(rarity.getColor() + rarity.getName());
 
         meta.setLore(lore);
 
         item.setItemMeta(meta);
+
+
+        return item;
 
 
     }

@@ -1,0 +1,7 @@
+name: Core
+description: Core for my senior project
+api-version: '1.20'
+version: 1.0-SNAPSHOT
+main: me.leaf.devs.Main
+author: Leaf
+load: POSTWORLD
