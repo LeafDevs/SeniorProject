@@ -19,7 +19,7 @@ public class ActionBar extends BukkitRunnable {
 
     @Override
     public void run() {
-        String messageUnformatted = "§c{health}❤️      §9{mana}✎      §6Level: {level}";
+        String messageUnformatted = "§c{health}♥     §9{mana}✎      §6Level: {level}";
         Player player = plr.getPlayer();
         int health = plr.getHealth();
         int mana = plr.getMana();

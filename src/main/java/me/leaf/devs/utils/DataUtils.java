@@ -59,6 +59,7 @@ public class DataUtils {
     }
 
     public static PClass getPlayerData(Player plr) {
+        Main.getPlugin().getLogger().info(playerData.toString());
         if (playerData.containsKey(plr.getUniqueId().toString())) {
             return playerData.get(plr.getUniqueId().toString());
         } else {

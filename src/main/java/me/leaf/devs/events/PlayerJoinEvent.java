@@ -18,6 +18,11 @@ public class PlayerJoinEvent implements Listener{
             me.leaf.devs.utils.DataUtils.loadPlayerData(plr);
         }
 
+        // get all players on the server
+        for (org.bukkit.entity.Player player : org.bukkit.Bukkit.getOnlinePlayers()) {
+            player.sendMessage("§a+ §c" + plr.getName());
+        }
+
 
 
         new ActionBar(DataUtils.getPlayerData(plr));

@@ -5,3 +5,10 @@ version: 1.0-SNAPSHOT
 main: me.leaf.devs.Main
 author: Leaf
 load: POSTWORLD
+commands:
+  item:
+    description: Gives you an item
+    usage: /<command> <item>
+  mob:
+    description: Spawns a mob
+    usage: /<command> <mob>
