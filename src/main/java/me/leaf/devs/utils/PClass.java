@@ -2,9 +2,11 @@ package me.leaf.devs.utils;
 
 import org.bukkit.entity.Player;
 
+import me.leaf.devs.items.ClassType;
+
 public class PClass {
     
-    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, Player plr) {
+    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, ClassType classType, Player plr) {
         this.health = health;
         this.defense = defense;
         this.strength = strength;
@@ -23,6 +25,7 @@ public class PClass {
         this.enchanting_level = enchanting_level;
         this.alchemy_level = alchemy_level;
         this.plr = plr;
+        this.classType = classType;
     }
 
     private int health;
@@ -43,6 +46,7 @@ public class PClass {
     private int enchanting_level;
     private int alchemy_level;
     private Player plr;
+    private ClassType classType;
 
     public Player getPlayer() {
         return plr;
@@ -115,6 +119,82 @@ public class PClass {
 
     public int getAlchemyLevel() {
         return alchemy_level;
+    }
+
+    public ClassType getClassType() {
+        return classType;
+    }
+
+    public void addHealth(int health) {
+        this.health += health;
+    }
+
+    public void addDefense(int defense) {
+        this.defense += defense;
+    }
+
+    public void addStrength(int strength) {
+        this.strength += strength;
+    }
+
+    public void addSpeed(int speed) {
+        this.speed += speed;
+    }
+
+    public void addMana(int mana) {
+        this.mana += mana;
+    }
+
+    public void addLuck(int luck) {
+        this.luck += luck;
+    }
+
+    public void addLevel(int level) {
+        this.level += level;
+    }
+
+    public void addXP(int xp) {
+        this.xp += xp;
+    }
+
+    public void addCritDamage(int crit_damage) {
+        this.crit_damage += crit_damage;
+    }
+
+    public void addCritChance(int crit_chance) {
+        this.crit_chance += crit_chance;
+    }
+
+    public void addMagicDamage(int magic_damage) {
+        this.magic_damage += magic_damage;
+    }
+
+    public void addCombatXP(int combat_xp) {
+        this.combat_xp += combat_xp;
+    }
+
+    public void addEnchantingXP(int enchanting_xp) {
+        this.enchanting_xp += enchanting_xp;
+    }
+
+    public void addAlchemyXP(int alchemy_xp) {
+        this.alchemy_xp += alchemy_xp;
+    }
+
+    public void addCombatLevel(int combat_level) {
+        this.combat_level += combat_level;
+    }
+
+    public void addEnchantingLevel(int enchanting_level) {
+        this.enchanting_level += enchanting_level;
+    }
+
+    public void addAlchemyLevel(int alchemy_level) {
+        this.alchemy_level += alchemy_level;
+    }
+
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
     }
 
 }

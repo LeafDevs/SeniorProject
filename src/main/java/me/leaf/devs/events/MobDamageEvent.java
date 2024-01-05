@@ -1,6 +1,7 @@
 package me.leaf.devs.events;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -9,7 +10,10 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.leaf.devs.Main;
+import me.leaf.devs.entities.EntityBuilder;
+import me.leaf.devs.items.ClassType;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
 
@@ -36,6 +40,34 @@ public class MobDamageEvent implements Listener {
             if (damager instanceof Player) {
                 Player player = (Player) damager;
                 PClass pClass = DataUtils.getPlayerData(player);
+
+                org.bukkit.inventory.ItemStack item = player.getInventory().getItemInMainHand();
+                NBTItem nbtItem = new NBTItem(item);
+
+                if(nbtItem.hasKey("class")) {
+                    ClassType type = ClassType.getClassType(nbtItem.getString("class"));
+
+                    if(pClass.getClassType() != type) {
+                        pClass.getPlayer().sendMessage("§cThis item is not for your class! You must be a " + type.getName() + " to use this item!");
+                        e.setCancelled(true);
+                        return;
+                    }
+                }
+
+                if(((LivingEntity) e.getEntity()).getHealth() - e.getDamage() <= 0) {
+                    int difference = pClass.getLevel() - EntityBuilder.entityGroups.get(e.getEntity()).getLevel();
+                    int xp = (int) ((Math.abs(difference * 100)) / 5.25);
+                    pClass.addCombatXP(xp);
+                    pClass.addXP(xp);
+                    pClass.getPlayer().sendMessage("§aYou gained " + xp + " XP!");
+                    if(pClass.getXP() >= 100) {
+                        pClass.addLevel(1);
+                        pClass.getPlayer().sendMessage("§aYou leveled up! You are now level " + pClass.getLevel() + "!");
+                    }
+                    return;
+                }
+                
+
                 int damage = (int) e.getDamage();
 
                 int strength = pClass.getStrength();
@@ -48,6 +80,8 @@ public class MobDamageEvent implements Listener {
                 }
 
                 damage += (damage * (1 + (strength / 5)));
+
+                e.setDamage(damage);
 
                 org.bukkit.entity.ArmorStand aStand = (org.bukkit.entity.ArmorStand) e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), org.bukkit.entity.EntityType.ARMOR_STAND);
                 aStand.setGravity(false);

@@ -5,13 +5,14 @@ import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.leaf.devs.entities.EntityBuilder;
+import me.leaf.devs.utils.events.EntityDeathEvent;
 
 public class MobHealthUpdater extends BukkitRunnable{
 
     public MobHealthUpdater(Entity ent, EntityBuilder entityBuilder) {
         this.ent = ent;
         this.entGroup = entityBuilder;
-        this.runTaskTimer(me.leaf.devs.Main.getPlugin(), 0, 5);
+        this.runTaskTimer(me.leaf.devs.Main.getPlugin(), 0, 2);
     }
 
     private Entity ent;

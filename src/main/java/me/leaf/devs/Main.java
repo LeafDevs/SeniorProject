@@ -2,6 +2,7 @@
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,6 +10,8 @@ import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.items.Item;
 import me.leaf.devs.items.swords.BasicSword;
 import me.leaf.devs.items.wands.BasicWand;
+import me.leaf.devs.utils.ActionBar;
+import me.leaf.devs.utils.DataUtils;
 
 public class Main extends JavaPlugin {
 
@@ -23,12 +26,14 @@ public class Main extends JavaPlugin {
         getLogger().info("Registering events...");
         getServer().getPluginManager().registerEvents(new me.leaf.devs.events.PlayerJoinEvent(), this);
         getServer().getPluginManager().registerEvents(new me.leaf.devs.events.MobDamageEvent(), this);
-        getLogger().info("Registered 1 Event with 0 Errors");
+        getServer().getPluginManager().registerEvents(new me.leaf.devs.events.ItemChangeEvent(), this);
+        getServer().getPluginManager().registerEvents(new me.leaf.devs.events.ChatMessageSentEvent(), this);
+        getLogger().info("Registered 3 Event with 0 Errors");
 
         getLogger().info("Registering commands...");
         getCommand("item").setExecutor(new me.leaf.devs.commands.ItemCommand());
         getCommand("mob").setExecutor(new me.leaf.devs.commands.MobCommand());
-        getLogger().info("Registered 2 Commands with 0 Errors");
+        getLogger().info("Registered 3 Commands with 0 Errors");
 
         getLogger().info("Registering items...");
         items.put("basic_wand", BasicWand.getItem());
@@ -41,6 +46,11 @@ public class Main extends JavaPlugin {
 
 
         getLogger().info("Plugin loaded!");
+
+        Bukkit.getOnlinePlayers().forEach((p) -> {
+            DataUtils.loadPlayerData(p);
+            new ActionBar(DataUtils.getPlayerData(p));
+        });
     }
 
     @Override

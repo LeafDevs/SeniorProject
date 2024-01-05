@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import de.tr7zw.nbtapi.NBTItem;
 import me.leaf.devs.items.ItemType;
 
 import me.leaf.devs.utils.Rarity;
@@ -129,6 +131,21 @@ public class Item {
         getDescription().forEach(line -> lore.add(line));
         lore.add("§7");
         lore.add(rarity.getColor() + rarity.getName());
+
+
+        NBTItem nbt = new NBTItem(item);
+        nbt.setInteger("damage", damage);
+        nbt.setInteger("strength", strength);
+        nbt.setInteger("crit_damage", crit_damage);
+        nbt.setInteger("crit_chance", crit_chance);
+        nbt.setInteger("luck", luck);
+        nbt.setInteger("health", health);
+        nbt.setInteger("defense", defense);
+        nbt.setInteger("magic_damage", magic_damage);
+
+
+
+        nbt.setString("UUID", java.util.UUID.randomUUID().toString());
 
         meta.setLore(lore);
 

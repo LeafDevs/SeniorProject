@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import me.leaf.devs.Main;
+import me.leaf.devs.items.ClassType;
 import me.leaf.devs.utils.PClass;
 
 public class DataUtils {
@@ -53,8 +54,11 @@ public class DataUtils {
             int combat_level = fileConfiguration.getInt("skills.combat.level");
             int enchanting_level = fileConfiguration.getInt("skills.enchanting.level");
             int alchemy_level = fileConfiguration.getInt("skills.alchemy.level");
+            String classTypeString = fileConfiguration.getString("class");
 
-            playerData.put(plr.getUniqueId().toString(), new PClass(health, defense, strength, speed, mana, luck, level, xp, crit_damage, crit_chance, magic_damage, combat_xp, enchanting_xp, alchemy_xp, combat_level, enchanting_level, alchemy_level, plr));
+            ClassType classType = ClassType.getClassType(classTypeString);
+
+            playerData.put(plr.getUniqueId().toString(), new PClass(health, defense, strength, speed, mana, luck, level, xp, crit_damage, crit_chance, magic_damage, combat_xp, enchanting_xp, alchemy_xp, combat_level, enchanting_level, alchemy_level, classType, plr));
         }
     }
 
@@ -107,8 +111,9 @@ public class DataUtils {
             fileConfiguration.set("skills.combat.level", 1);
             fileConfiguration.set("skills.enchanting.level", 1);
             fileConfiguration.set("skills.alchemy.level", 1);
+            fileConfiguration.set("class", "none");
 
-            playerData.put(plr.getUniqueId().toString(), new PClass(100, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0, plr));
+            playerData.put(plr.getUniqueId().toString(), new PClass(100, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0, ClassType.NOT_PICKED,plr));
 
             try {
                 fileConfiguration.save(file);

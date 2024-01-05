@@ -3,6 +3,7 @@ package me.leaf.devs.events;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import me.leaf.devs.items.ClassType;
 import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
@@ -18,12 +19,13 @@ public class PlayerJoinEvent implements Listener{
             me.leaf.devs.utils.DataUtils.loadPlayerData(plr);
         }
 
-        // get all players on the server
-        for (org.bukkit.entity.Player player : org.bukkit.Bukkit.getOnlinePlayers()) {
-            player.sendMessage("§a+ §c" + plr.getName());
+        PClass pClass = DataUtils.getPlayerData(plr);
+        if(pClass.getClassType() == ClassType.NOT_PICKED || pClass.getClassType() == null) {
+            plr.sendMessage("§cYou have not picked a class yet! Do /class to pick a class!");
         }
 
-
+        e.setJoinMessage("§a+ §c" + plr.getName());
+        plr.setHealth(20);
 
         new ActionBar(DataUtils.getPlayerData(plr));
     }
