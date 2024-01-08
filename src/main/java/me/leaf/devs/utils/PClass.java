@@ -6,7 +6,7 @@ import me.leaf.devs.items.ClassType;
 
 public class PClass {
     
-    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, ClassType classType, Player plr) {
+    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, String classType, Player plr) {
         this.health = health;
         this.defense = defense;
         this.strength = strength;
@@ -25,7 +25,7 @@ public class PClass {
         this.enchanting_level = enchanting_level;
         this.alchemy_level = alchemy_level;
         this.plr = plr;
-        this.classType = classType;
+        this.classType = ClassType.getClassType(classType);
     }
 
     private int health;

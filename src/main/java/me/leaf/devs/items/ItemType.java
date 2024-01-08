@@ -17,6 +17,7 @@ public enum ItemType {
     POTION,
     SHEILD,
     TOTEM,
+    ARMOR_ITEM,
     ;
     
 }

@@ -5,7 +5,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.leaf.devs.entities.EntityBuilder;
-import me.leaf.devs.utils.events.EntityDeathEvent;
 
 public class MobHealthUpdater extends BukkitRunnable{
 

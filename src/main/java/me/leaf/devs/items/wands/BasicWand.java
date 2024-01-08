@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class BasicWand {
 
-    private Item item;
+    public Item item;
 
     public BasicWand() {
         ItemStack item = new ItemStack(Material.STICK);

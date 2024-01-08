@@ -24,6 +24,8 @@ public class PlayerJoinEvent implements Listener{
             plr.sendMessage("§cYou have not picked a class yet! Do /class to pick a class!");
         }
 
+        System.out.println(pClass.getPlayer().getDisplayName() + " Joined Current Data: Level" + pClass.getLevel() + " XP:" + pClass.getXP() + " Class:" + pClass.getClassType().getName());
+
         e.setJoinMessage("§a+ §c" + plr.getName());
         plr.setHealth(20);
 

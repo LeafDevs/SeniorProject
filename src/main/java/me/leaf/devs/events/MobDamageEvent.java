@@ -53,19 +53,6 @@ public class MobDamageEvent implements Listener {
                         return;
                     }
                 }
-
-                if(((LivingEntity) e.getEntity()).getHealth() - e.getDamage() <= 0) {
-                    int difference = pClass.getLevel() - EntityBuilder.entityGroups.get(e.getEntity()).getLevel();
-                    int xp = (int) ((Math.abs(difference * 100)) / 5.25);
-                    pClass.addCombatXP(xp);
-                    pClass.addXP(xp);
-                    pClass.getPlayer().sendMessage("§aYou gained " + xp + " XP!");
-                    if(pClass.getXP() >= 100) {
-                        pClass.addLevel(1);
-                        pClass.getPlayer().sendMessage("§aYou leveled up! You are now level " + pClass.getLevel() + "!");
-                    }
-                    return;
-                }
                 
 
                 int damage = (int) e.getDamage();
