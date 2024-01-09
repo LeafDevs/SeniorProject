@@ -6,6 +6,29 @@ import me.leaf.devs.items.ClassType;
 
 public class PClass {
     
+    public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, String classType, Player plr, PSpell spells) {
+        this.health = health;
+        this.defense = defense;
+        this.strength = strength;
+        this.speed = speed;
+        this.mana = mana;
+        this.luck = luck;
+        this.level = level;
+        this.xp = xp;
+        this.crit_damage = crit_damage;
+        this.crit_chance = crit_chance;
+        this.magic_damage = magic_damage;
+        this.combat_xp = combat_xp;
+        this.enchanting_xp = enchanting_xp;
+        this.alchemy_xp = alchemy_xp;
+        this.combat_level = combat_level;
+        this.enchanting_level = enchanting_level;
+        this.alchemy_level = alchemy_level;
+        this.plr = plr;
+        this.classType = ClassType.getClassType(classType);
+        this.spells = spells;
+    }
+
     public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, String classType, Player plr) {
         this.health = health;
         this.defense = defense;
@@ -26,6 +49,7 @@ public class PClass {
         this.alchemy_level = alchemy_level;
         this.plr = plr;
         this.classType = ClassType.getClassType(classType);
+        this.spells = null;
     }
 
     private int health;
@@ -47,6 +71,7 @@ public class PClass {
     private int alchemy_level;
     private Player plr;
     private ClassType classType;
+    private PSpell spells;
 
     public Player getPlayer() {
         return plr;
@@ -195,6 +220,16 @@ public class PClass {
 
     public void setClassType(ClassType classType) {
         this.classType = classType;
+    }
+
+    public void sendMessage(String message) {
+        getPlayer().sendMessage(message.replace("&", "\u00a7"));
+    }
+
+    public void sendMessages(String... messages) {
+        for(int i = 0; i >= messages.length; i++) {
+            getPlayer().sendMessage(messages[i].replace("&", "\u00a7"));
+        }
     }
 
 }

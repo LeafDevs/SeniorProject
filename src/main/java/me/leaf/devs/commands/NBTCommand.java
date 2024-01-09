@@ -16,8 +16,10 @@ public class NBTCommand implements CommandExecutor{
         if(plr.getInventory().getItemInMainHand().getType() != null || plr.getInventory().getItemInMainHand().getType() != Material.AIR) {
             NBTItem nbtItem = new NBTItem(plr.getInventory().getItemInMainHand());
             nbtItem.getKeys().forEach(key -> {
-                String value = nbtItem.getString(key);
-                plr.sendMessage("\u00a76" + key + ":\u00a7e" + value);
+                if(key != "display") {
+                    String value = nbtItem.getString(key);
+                    plr.sendMessage("\u00a76" + key + ":\u00a7e" + value.toString());
+                }
             });
         }
         return false;

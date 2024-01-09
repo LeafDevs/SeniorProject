@@ -25,6 +25,7 @@ public class Armor {
         this.magic_damage = magic_damage;
         this.rarity = rarity;
         this.item = item;
+        this.description=description;
     }
 
     private String name;
@@ -37,7 +38,7 @@ public class Armor {
     private int magic_damage;
     private Rarity rarity;
     private ItemStack item;
-    private String description;
+    private String[] description;
 
     public String getName() {
         return name;
@@ -120,7 +121,10 @@ public class Armor {
 
 
         lore.add("§7");
-        getDescription().forEach(line -> lore.add(line));
+        for(int i = 0; i <= description.length; i++) {
+            lore.add(description[i]);
+
+        }
         lore.add("§7");
         lore.add(rarity.getColor() + rarity.getName());
 
@@ -140,10 +144,11 @@ public class Armor {
 
         meta.setLore(lore);
 
-        item.setItemMeta(meta);
+        ItemStack newItem = nbt.getItem();
 
+        newItem.setItemMeta(meta);
 
-        return item;
+        return newItem;
 
 
     }

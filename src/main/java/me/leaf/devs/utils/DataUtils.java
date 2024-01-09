@@ -31,6 +31,11 @@ public class DataUtils {
         }
     }
 
+    public static boolean hasPlayerData(Player plr) {
+        File file = new File(Main.getPlugin().getDataFolder() + File.separator + "playerData" + File.separator + plr.getUniqueId().toString() + ".yml");
+        return file.exists();
+    }
+
     public static void loadPlayerData(Player plr) {
         File file = new File(Main.getPlugin().getDataFolder() + File.separator + "playerData" + File.separator + plr.getUniqueId().toString() + ".yml");
         if (file.exists()) {

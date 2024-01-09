@@ -30,8 +30,6 @@ public class MobDeathEvent implements Listener{
 
             try {
                 EntityBuilder eb = EntityBuilder.entityGroups.get((Entity) e.getEntity());
-                eb.getLevel();
-                    int difference = pClass.getLevel() - EntityBuilder.entityGroups.get(e.getEntity()).getLevel();
                     int xp = (int) 10*(eb.getLevel()-pClass.getLevel()+30);
                     if(xp <= 0) {
                         xp = 0;

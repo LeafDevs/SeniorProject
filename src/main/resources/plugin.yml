@@ -5,6 +5,7 @@ version: 1.0-SNAPSHOT
 main: me.leaf.devs.Main
 author: Leaf
 load: POSTWORLD
+depends: [NBTAPI]
 commands:
   item:
     description: Gives you an item
@@ -14,4 +15,7 @@ commands:
     usage: /<command> <mob>
   nbt:
     description: View NBT of an item
+    usage: /<command>
+  stats:
+    description: View ur stats
     usage: /<command>

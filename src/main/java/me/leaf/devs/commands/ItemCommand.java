@@ -11,6 +11,8 @@ import me.leaf.devs.items.wands.BasicWand;
 
 import org.bukkit.inventory.ItemStack;
 
+import de.tr7zw.nbtapi.NBTItem;
+
 public class ItemCommand implements CommandExecutor {
 
     @Override
@@ -22,6 +24,8 @@ public class ItemCommand implements CommandExecutor {
         }
         if(Main.items.containsKey(args[0])) {
             ItemStack item = Main.items.get(args[0]).createItem();
+            NBTItem nbtItem = new NBTItem(item);
+            System.out.println("NBT OF Item " + nbtItem.toString());
             plr.getInventory().addItem(item);
             sender.sendMessage("§aYou have been given the item §6" + item.getItemMeta().getDisplayName() + "§a!");
             return true;

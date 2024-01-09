@@ -25,6 +25,7 @@ public class Item {
         this.magic_damage = magic_damage;
         this.rarity = rarity;
         this.item = item;
+        this.description=description;
     }
 
     private String name;
@@ -38,7 +39,7 @@ public class Item {
     private int magic_damage;
     private Rarity rarity;
     private ItemStack item;
-    private String description;
+    private String[] description;
 
     public String getName() {
         return name;
@@ -80,15 +81,27 @@ public class Item {
         return rarity;
     }
 
-    public List<String> getDescription() {
-        List<String> list = Arrays.asList(description);
-        return list;
-    }
-
 
     public ItemStack createItem() {
         
-        ItemMeta meta = item.getItemMeta();
+        NBTItem nbt = new NBTItem(item);
+        System.out.println("Before NBT Setting: " + nbt.toString());
+        nbt.setString("damage", "" + damage);
+        nbt.setString("strength", "" + strength);
+        nbt.setString("crit_damage","" +  crit_damage);
+        nbt.setString("crit_chance", "" + crit_chance);
+        nbt.setString("luck", "" + luck);
+        nbt.setString("health", "" + health);
+        nbt.setString("defense", "" + defense);
+        nbt.setString("magic_damage", "" + magic_damage);
+        nbt.setString("UUID", java.util.UUID.randomUUID().toString());
+
+
+        System.out.println("After NBT Setting: " + nbt.toString());
+
+        ItemStack newItem = nbt.getItem();
+
+        ItemMeta meta = newItem.getItemMeta();
 
         meta.setDisplayName(rarity.getColor() + name);
 
@@ -128,32 +141,29 @@ public class Item {
 
 
         lore.add("§7");
-        getDescription().forEach(line -> lore.add(line));
+        for (int i = 0; i < description.length; i++) {
+            lore.add("\u00a77" + description[i]);
+        }
+        
         lore.add("§7");
         lore.add(rarity.getColor() + rarity.getName());
 
-
-        NBTItem nbt = new NBTItem(item);
-        nbt.setInteger("damage", damage);
-        nbt.setInteger("strength", strength);
-        nbt.setInteger("crit_damage", crit_damage);
-        nbt.setInteger("crit_chance", crit_chance);
-        nbt.setInteger("luck", luck);
-        nbt.setInteger("health", health);
-        nbt.setInteger("defense", defense);
-        nbt.setInteger("magic_damage", magic_damage);
-
-
-
-        nbt.setString("UUID", java.util.UUID.randomUUID().toString());
-
         meta.setLore(lore);
 
-        item.setItemMeta(meta);
+        newItem.setItemMeta(meta);
+
+        return newItem;
 
 
-        return item;
+    }
 
+
+    public ItemStack applyNBT(ItemStack item) {
+        NBTItem nbtItem = new NBTItem(item);
+
+
+
+        return nbtItem.getItem();
 
     }
 

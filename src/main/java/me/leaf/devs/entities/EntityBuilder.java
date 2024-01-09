@@ -81,6 +81,10 @@ public class EntityBuilder {
         this.health = health;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public void spawn(Location loc) {
         Entity ent = loc.getWorld().spawnEntity(loc, type);
         entityGroups.put(ent, this);

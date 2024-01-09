@@ -37,6 +37,7 @@ public class Main extends JavaPlugin {
         getCommand("item").setExecutor(new me.leaf.devs.commands.ItemCommand());
         getCommand("mob").setExecutor(new me.leaf.devs.commands.MobCommand());
         getCommand("nbt").setExecutor(new me.leaf.devs.commands.NBTCommand());
+        getCommand("stats").setExecutor(new me.leaf.devs.commands.StatsCommand());
         getLogger().info("Registered 3 Commands with 0 Errors");
 
         getLogger().info("Registering items...");

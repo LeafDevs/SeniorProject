@@ -13,11 +13,15 @@ public class MobCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player plr = (Player) sender;
         if (args.length == 0) {
-            sender.sendMessage("§cUsage: /mob <mob>");
+            sender.sendMessage("§cUsage: /mob <mob> [level]");
             return true;
         }
         if(Main.entities.containsKey(args[0])) {
             me.leaf.devs.entities.EntityBuilder entity = Main.entities.get(args[0].toLowerCase());
+            if(args.length == 2) {
+                int level = Integer.parseInt(args[1]);
+                entity.setLevel(level);
+            }
             entity.spawn(plr.getLocation());
             sender.sendMessage("§aYou have spawned a §6" + entity.getName() + "§a!");
             return true;

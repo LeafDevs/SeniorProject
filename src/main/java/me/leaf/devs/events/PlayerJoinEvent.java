@@ -13,8 +13,9 @@ public class PlayerJoinEvent implements Listener{
     @EventHandler
     public void onPlayerJoin(org.bukkit.event.player.PlayerJoinEvent e) {
         org.bukkit.entity.Player plr = e.getPlayer();
-        if (!plr.hasPlayedBefore()) {
+        if (!DataUtils.hasPlayerData(plr)) {
             me.leaf.devs.utils.DataUtils.createPlayerData(plr);
+            plr.kickPlayer("\u00a7cPlayer Data Created. Please reconnect!");
         } else {
             me.leaf.devs.utils.DataUtils.loadPlayerData(plr);
         }
@@ -24,7 +25,12 @@ public class PlayerJoinEvent implements Listener{
             plr.sendMessage("§cYou have not picked a class yet! Do /class to pick a class!");
         }
 
-        System.out.println(pClass.getPlayer().getDisplayName() + " Joined Current Data: Level" + pClass.getLevel() + " XP:" + pClass.getXP() + " Class:" + pClass.getClassType().getName());
+        if(pClass.getClassType() == null) {
+            System.out.println(pClass.getPlayer().getDisplayName() + " Joined Current Data: Level" + pClass.getLevel() + " XP:" + pClass.getXP() + " Class:" + "None");
+        } else {
+            System.out.println(pClass.getPlayer().getDisplayName() + " Joined Current Data: Level" + pClass.getLevel() + " XP:" + pClass.getXP() + " Class:" + pClass.getClassType().getName());
+        }
+
 
         e.setJoinMessage("§a+ §c" + plr.getName());
         plr.setHealth(20);
