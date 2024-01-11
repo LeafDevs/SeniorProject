@@ -1,5 +1,6 @@
 package me.leaf.devs.items.wands;
 
+import me.leaf.devs.items.ClassType;
 import me.leaf.devs.items.Item;
 import me.leaf.devs.items.ItemType;
 import me.leaf.devs.utils.Rarity;
@@ -13,7 +14,7 @@ public class BasicWand {
 
     public BasicWand() {
         ItemStack item = new ItemStack(Material.STICK);
-        this.item = new Item("Basic Wand", 0, 0, 0, 0, 0, 0, 0, 10, Rarity.COMMON, item ,ItemType.WAND, "A basic wand.");
+        this.item = new Item("Basic Wand", 0, 0, 0, 0, 0, 0, 0, 10, Rarity.COMMON, item,ItemType.WAND, ClassType.MAGE,"A basic wand.");
     }
 
     public static Item getItem() {

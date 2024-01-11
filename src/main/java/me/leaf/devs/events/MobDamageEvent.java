@@ -25,10 +25,6 @@ public class MobDamageEvent implements Listener {
         if(e.getCause() == DamageCause.FIRE_TICK) e.setCancelled(true);
 
         if(e.getCause() != DamageCause.ENTITY_ATTACK) return;
-
-        if(e.getEntity() instanceof Player) {
-            e.setCancelled(true);
-        }   
         
         if(e.getEntity() instanceof org.bukkit.entity.ArmorStand) {
             e.setCancelled(true);

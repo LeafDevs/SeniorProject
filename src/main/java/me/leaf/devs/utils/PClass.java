@@ -2,6 +2,7 @@ package me.leaf.devs.utils;
 
 import org.bukkit.entity.Player;
 
+import me.leaf.devs.Main;
 import me.leaf.devs.items.ClassType;
 
 public class PClass {
@@ -72,6 +73,10 @@ public class PClass {
     private Player plr;
     private ClassType classType;
     private PSpell spells;
+
+
+
+    private int currentHP = health;
 
     public Player getPlayer() {
         return plr;
@@ -219,8 +224,10 @@ public class PClass {
     }
 
     public void setClassType(ClassType classType) {
+        Main.getPlugin().getLogger().info("Setting classtype of user " + getPlayer().getDisplayName() + " to: " + classType);
         this.classType = classType;
     }
+
 
     public void sendMessage(String message) {
         getPlayer().sendMessage(message.replace("&", "\u00a7"));
@@ -232,4 +239,13 @@ public class PClass {
         }
     }
 
+
+
+    public void setHP(int HP) {
+        this.currentHP = HP;
+    }
+
+    public int getHP() {
+        return this.currentHP;
+    }
 }

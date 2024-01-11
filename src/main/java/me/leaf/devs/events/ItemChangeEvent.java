@@ -3,17 +3,23 @@ package me.leaf.devs.events;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import de.tr7zw.nbtapi.NBTItem;
-import de.tr7zw.nbtapi.plugin.NBTAPI;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
 
 public class ItemChangeEvent implements Listener {
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if(e.getClick() == ClickType.NUMBER_KEY || e.getClick() == ClickType.SWAP_OFFHAND) {
+            e.setCancelled(true);
+        }
+    }
     
     @EventHandler
     public void onItemSwap(PlayerItemHeldEvent e) {
@@ -26,10 +32,10 @@ public class ItemChangeEvent implements Listener {
         boolean isLastSlotAir = false;
         boolean isNewSlotAir = false;
 
-        if(lastItem.getType() == Material.AIR || lastItem == null) {
+        if(lastItem == null) {
             isLastSlotAir = true;
         }
-        if(newItem.getType() == Material.AIR || newItem == null) {
+        if(newItem == null) {
             isNewSlotAir = true;
         }
 

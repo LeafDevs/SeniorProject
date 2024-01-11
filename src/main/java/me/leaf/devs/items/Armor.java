@@ -14,7 +14,7 @@ import me.leaf.devs.items.ItemType;
 import me.leaf.devs.utils.Rarity;
 
 public class Armor {
-    public Armor(String name, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, ArmorType type, String... description) {
+    public Armor(String name, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, ArmorType type, ClassType classType, String... description) {
         this.name = name;
         this.strength = strength;
         this.crit_damage = crit_damage;
@@ -26,6 +26,7 @@ public class Armor {
         this.rarity = rarity;
         this.item = item;
         this.description=description;
+        this.classType = classType;
     }
 
     private String name;
@@ -39,6 +40,7 @@ public class Armor {
     private Rarity rarity;
     private ItemStack item;
     private String[] description;
+    private ClassType classType;
 
     public String getName() {
         return name;
@@ -82,6 +84,9 @@ public class Armor {
         return list;
     }
 
+    public ClassType getClassType() {
+        return this.classType;
+    }
 
     public ItemStack createItem() {
         
@@ -158,7 +163,7 @@ public class Armor {
     }
 
     public static Item toItem(Armor armor) {
-        return new Item(armor.getName(), 0, armor.getStrength(), armor.getCritDamage(), armor.getCritChance(), armor.getLuck(), armor.getHealth(), armor.getDefense(), armor.getMagicDamage(), armor.getRarity(), new ItemStack(armor.getItemMaterial()), ItemType.ARMOR_ITEM, armor.description);
+        return new Item(armor.getName(), 0, armor.getStrength(), armor.getCritDamage(), armor.getCritChance(), armor.getLuck(), armor.getHealth(), armor.getDefense(), armor.getMagicDamage(), armor.getRarity(), new ItemStack(armor.getItemMaterial()), ItemType.ARMOR_ITEM, armor.getClassType(),armor.description);
     }
 
 

@@ -13,7 +13,7 @@ import me.leaf.devs.items.ItemType;
 import me.leaf.devs.utils.Rarity;
 
 public class Item {
-    public Item(String name, int damage, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, ItemType type, String... description) {
+    public Item(String name, int damage, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, ItemType type, ClassType classType, String... description) {
         this.name = name;
         this.damage = damage;
         this.strength = strength;
@@ -26,6 +26,7 @@ public class Item {
         this.rarity = rarity;
         this.item = item;
         this.description=description;
+        this.classType = classType;
     }
 
     private String name;
@@ -40,6 +41,7 @@ public class Item {
     private Rarity rarity;
     private ItemStack item;
     private String[] description;
+    private ClassType classType;
 
     public String getName() {
         return name;
@@ -81,11 +83,14 @@ public class Item {
         return rarity;
     }
 
+    public ClassType getClassType() {
+        return classType;
+    }
+
 
     public ItemStack createItem() {
         
         NBTItem nbt = new NBTItem(item);
-        System.out.println("Before NBT Setting: " + nbt.toString());
         nbt.setString("damage", "" + damage);
         nbt.setString("strength", "" + strength);
         nbt.setString("crit_damage","" +  crit_damage);
@@ -95,9 +100,11 @@ public class Item {
         nbt.setString("defense", "" + defense);
         nbt.setString("magic_damage", "" + magic_damage);
         nbt.setString("UUID", java.util.UUID.randomUUID().toString());
+        
 
-
-        System.out.println("After NBT Setting: " + nbt.toString());
+        if(classType.getName() != "All") {
+            nbt.setString("class", classType.getName());
+        }
 
         ItemStack newItem = nbt.getItem();
 
@@ -157,15 +164,6 @@ public class Item {
 
     }
 
-
-    public ItemStack applyNBT(ItemStack item) {
-        NBTItem nbtItem = new NBTItem(item);
-
-
-
-        return nbtItem.getItem();
-
-    }
 
 
 }

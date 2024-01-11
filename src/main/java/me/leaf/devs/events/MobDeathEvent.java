@@ -2,6 +2,7 @@ package me.leaf.devs.events;
 
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,6 +31,9 @@ public class MobDeathEvent implements Listener{
 
             try {
                 EntityBuilder eb = EntityBuilder.entityGroups.get((Entity) e.getEntity());
+                if(eb == null) {
+                    eb = new EntityBuilder("NULL", 0, 1, 1, EntityType.AREA_EFFECT_CLOUD);
+                }
                     int xp = (int) 10*(eb.getLevel()-pClass.getLevel()+30);
                     if(xp <= 0) {
                         xp = 0;

@@ -64,8 +64,59 @@ public class DataUtils {
         }
     }
 
+    public static void savePlayerData(PClass plr) {
+        File file = new File(Main.getPlugin().getDataFolder() + File.separator + "playerData" + File.separator + plr.getPlayer().getUniqueId().toString() + ".yml");
+        if (file.exists()) {
+            FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+            int health = plr.getHealth();
+            int defense = plr.getDefense();
+            int strength = plr.getStrength();
+            int speed = plr.getSpeed();
+            int mana = plr.getMana();
+            int luck = plr.getLuck();
+            int level = plr.getLevel();
+            int xp = plr.getXP();
+            int crit_damage = plr.getCritDamage();
+            int crit_chance = plr.getCritChance();
+            int magic_damage = plr.getMagicDamage();
+            int combat_xp = plr.getCombatXP();
+            int enchanting_xp = plr.getEnchantingXP();
+            int alchemy_xp = plr.getAlchemyXP();
+            int combat_level = plr.getCombatLevel();
+            int enchanting_level = plr.getEnchantingLevel();
+            int alchemy_level = plr.getAlchemyLevel();
+            String classType = plr.getClassType().getName();
+
+
+            fileConfiguration.set("health", health);
+            fileConfiguration.set("strength", strength);
+            fileConfiguration.set("defense", defense);
+            fileConfiguration.set("speed", speed);
+            fileConfiguration.set("mana", mana);
+            fileConfiguration.set("luck", luck);
+            fileConfiguration.set("level", level);
+            fileConfiguration.set("xp", xp);
+            fileConfiguration.set("crit_damage", crit_damage);
+            fileConfiguration.set("crit_chance", crit_chance);
+            fileConfiguration.set("magic_damage", magic_damage);
+            fileConfiguration.set("skills.combat.xp", combat_xp);
+            fileConfiguration.set("skills.enchanting.xp", enchanting_xp);
+            fileConfiguration.set("skills.alchemy.xp", alchemy_xp);
+            fileConfiguration.set("skills.combat.level", combat_level);
+            fileConfiguration.set("skills.enchanting.level", enchanting_level);
+            fileConfiguration.set("skills.alchemy.level", alchemy_level);
+            fileConfiguration.set("class", classType);
+
+            try {
+                Main.getPlugin().getLogger().info("Attemping to save file.");
+                fileConfiguration.save(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static PClass getPlayerData(Player plr) {
-        Main.getPlugin().getLogger().info(playerData.toString());
         if (playerData.containsKey(plr.getUniqueId().toString())) {
             return playerData.get(plr.getUniqueId().toString());
         } else {
@@ -95,6 +146,7 @@ public class DataUtils {
             fileConfiguration.createSection("skills.combat.level");
             fileConfiguration.createSection("skills.enchanting.level");
             fileConfiguration.createSection("skills.alchemy.level");
+            fileConfiguration.createSection("class");
 
             fileConfiguration.set("health", 100);
             fileConfiguration.set("strength", 0);
@@ -122,7 +174,6 @@ public class DataUtils {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Main.getPlugin().saveResource("playerData" + File.separator + plr.getUniqueId().toString() + ".yml", false);
         }
     }
 }

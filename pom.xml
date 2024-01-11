@@ -49,7 +49,7 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <filtering>false</filtering>
             </resource>
         </resources>
     </build>
@@ -99,6 +99,13 @@
             <version>1.8.8</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/spigot-1.20.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>nbs</groupId>
+            <artifactId>nbs-api</artifactId>
+            <version>1.6.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/plugins/NoteBlockAPI-1.6.2.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

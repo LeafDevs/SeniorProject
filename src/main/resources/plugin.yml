@@ -19,3 +19,9 @@ commands:
   stats:
     description: View ur stats
     usage: /<command>
+  playsong:
+    description: Play a song from the nbs files
+    usage: /<command> <song>
+  class:
+    description: Pick your class
+    usage: /<command> <class>

@@ -7,6 +7,7 @@ public enum ClassType {
     SUMMONER("Summoner"), // Tome User
     WARRIOR("Warrior"), // Spear User
     NOT_PICKED("NOT_PICKED"), // Not Picked a class yet
+    ALL("All"),
     ;
 
     ClassType(String name) {

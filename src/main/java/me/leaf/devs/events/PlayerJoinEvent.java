@@ -1,7 +1,9 @@
 package me.leaf.devs.events;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.leaf.devs.items.ClassType;
 import me.leaf.devs.utils.ActionBar;
@@ -36,6 +38,18 @@ public class PlayerJoinEvent implements Listener{
         plr.setHealth(20);
 
         new ActionBar(DataUtils.getPlayerData(plr));
+    }
+
+
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent e) {
+        Player plr = e.getPlayer();
+
+        PClass pClass = DataUtils.getPlayerData(plr);
+
+        DataUtils.savePlayerData(pClass);
+
+        e.setQuitMessage("§a- §c" + plr.getName()); 
     }
 
 }
