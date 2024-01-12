@@ -11,7 +11,7 @@ public enum ClassType {
     ;
 
     ClassType(String name) {
-
+        this.name = name;
     }
 
     private String name;

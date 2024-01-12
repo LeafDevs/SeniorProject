@@ -25,3 +25,6 @@ commands:
   class:
     description: Pick your class
     usage: /<command> <class>
+  fixstats:
+    description: Fix your stats if they are not displayed correctly
+    usage: /<command>

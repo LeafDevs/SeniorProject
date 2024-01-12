@@ -1,4 +1,4 @@
- package me.leaf.devs;
+package me.leaf.devs;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import me.leaf.devs.items.Armor;
 import me.leaf.devs.items.Item;
 import me.leaf.devs.items.armor.boots.HolyBoots;
 import me.leaf.devs.items.swords.BasicSword;
+import me.leaf.devs.items.swords.GodSword;
 import me.leaf.devs.items.wands.BasicWand;
 import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
@@ -31,7 +32,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.plugin = this;
+        plugin = this;
         getLogger().info("Registering events...");
         getServer().getPluginManager().registerEvents(new PlayerJoinEvent(), this);
         getServer().getPluginManager().registerEvents(new MobDamageEvent(), this);
@@ -48,12 +49,14 @@ public class Main extends JavaPlugin {
         getCommand("stats").setExecutor(new StatsCommand());
         getCommand("playsong").setExecutor(new PlaySongCommand());
         getCommand("class").setExecutor(new ClassCommand());
+        getCommand("fixstats").setExecutor(new FixStatsCommand());
         getLogger().info("Registered 3 Commands with 0 Errors");
 
         getLogger().info("Registering items...");
         items.put("basic_wand", BasicWand.getItem());
         items.put("basic_sword", BasicSword.getItem());
         items.put("holy_boots", Armor.toItem(HolyBoots.getItem()));
+        items.put("god_sword", GodSword.getItem());
         getLogger().info("Registered 2 Items with 0 Errors");
 
         getLogger().info("Registering entities...");

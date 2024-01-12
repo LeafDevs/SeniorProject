@@ -21,11 +21,12 @@ public class ActionBar extends BukkitRunnable {
     public void run() {
         String messageUnformatted = "§c{health}♥     §9{mana}✎      §6Level: {level}";
         Player player = plr.getPlayer();
-        int health = plr.getHealth();
+        int health = plr.getHP();
+        int maxHP = plr.getHealth();
         int mana = plr.getMana();
         int level = plr.getLevel();
 
-        String message = messageUnformatted.replace("{health}", String.valueOf(health)).replace("{mana}", String.valueOf(mana)).replace("{level}", String.valueOf(level));
+        String message = messageUnformatted.replace("{health}", String.valueOf(health) + "|" + String.valueOf(maxHP)).replace("{mana}", String.valueOf(mana)).replace("{level}", String.valueOf(level));
 
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }

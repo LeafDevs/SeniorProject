@@ -28,11 +28,17 @@ public class MobDamageEvent implements Listener {
         
         if(e.getEntity() instanceof org.bukkit.entity.ArmorStand) {
             e.setCancelled(true);
+            return;
         }
+
 
         if (e instanceof EntityDamageByEntityEvent) {
             EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
             Entity damager = event.getDamager();
+            if(e.getCause() == DamageCause.ENTITY_SWEEP_ATTACK) {
+                e.setCancelled(true);
+                event.setCancelled(true);
+            }
             if (damager instanceof Player) {
                 Player player = (Player) damager;
                 PClass pClass = DataUtils.getPlayerData(player);
@@ -67,9 +73,9 @@ public class MobDamageEvent implements Listener {
                 e.setDamage(damage);
 
                 org.bukkit.entity.ArmorStand aStand = (org.bukkit.entity.ArmorStand) e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), org.bukkit.entity.EntityType.ARMOR_STAND);
+                aStand.setInvulnerable(true);
                 aStand.setGravity(false);
                 aStand.setVisible(false);
-                aStand.setInvulnerable(true);
                 aStand.setCustomNameVisible(true);
                 aStand.setCustomName("§c" + damage);
                 aStand.setSmall(true);

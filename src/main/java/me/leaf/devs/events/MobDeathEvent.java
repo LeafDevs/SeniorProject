@@ -12,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.leaf.devs.Main;
 import me.leaf.devs.entities.EntityBuilder;
+import me.leaf.devs.items.Armor;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
 
@@ -22,8 +23,7 @@ public class MobDeathEvent implements Listener{
 
         LivingEntity ent = e.getEntity();
 
-
-        if(ent.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK && ent.getKiller() instanceof Player) {
+        if(ent.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK && ent.getKiller() instanceof Player && !(e.getEntity() instanceof ArmorStand)) {
 
             Player plr = ent.getKiller();
             
@@ -41,17 +41,17 @@ public class MobDeathEvent implements Listener{
                     pClass.addCombatXP(xp);
                     pClass.addXP(xp);
                     
-                    ArmorStand user = ent.getWorld().spawn(ent.getLocation().add(0, 0, 0), ArmorStand.class);
+                    ArmorStand user = (ArmorStand) ent.getWorld().spawnEntity(ent.getLocation().add(0, 0, 0), EntityType.ARMOR_STAND);
+                    user.setInvulnerable(true);
                     user.setInvisible(true);
                     user.setCustomNameVisible(true);
-                    user.setInvulnerable(true);
                     user.setGravity(false);
                     user.setCustomName("\u00a77[{player}]".replace("{player}", pClass.getPlayer().getDisplayName()));
             
-                    ArmorStand XP = ent.getWorld().spawn(ent.getLocation().add(0, -0.5, 0), ArmorStand.class);
+                    ArmorStand XP = (ArmorStand) ent.getWorld().spawnEntity(ent.getLocation().add(0, -0.5, 0), EntityType.ARMOR_STAND);
+                    XP.setInvulnerable(true);
                     XP.setInvisible(true);
                     XP.setCustomNameVisible(true);
-                    XP.setInvulnerable(true);
                     XP.setGravity(false);
                     XP.setCustomName("\u00a77+{XP} Combat XP".replace("{XP}", "" + xp));
             

@@ -32,24 +32,26 @@ public class PlayerDamageEvent implements Listener{
 
                 int defense =  pClass.getDefense();
                 int health = pClass.getHP();
-
+ 
                 e.setDamage(0);
 
-                double damageReduction = (defense / (defense + 100)); // percentage
+                int def100 = defense + 100;
+
+                double damageReduction = (double) defense / def100; // percentage
 
                 Main.getPlugin().getLogger().info("defense + 100 |" + (defense + 100) + "defense / (defense + 100)" + (defense / (defense + 100)));
 
                 Main.getPlugin().getLogger().info("Damage Reduction: " + damageReduction + "%    Defense: " + defense);
                 
-                int negatedDmg = (int) (damage / damageReduction);
+                double negatedDmg = (int) (damage / damageReduction);
 
                 Main.getPlugin().getLogger().info("{player} took {damage} Remaining HP: {hp}  Damage Negated: {negate}  Health: {health}".replace("{health}", "" + health).replace("{negate}","" + negatedDmg).replace("{player}", pClass.getPlayer().getDisplayName()).replace("{hp}", "" + (health - negatedDmg)).replace("{damage}", "" + damage));
 
-                pClass.setHP(health - negatedDmg);
+                pClass.setHP((int) (health - negatedDmg));
 
                 if(pClass.getHP() <= 0) {
                     pClass.sendMessages("&7You have died!", "&cYou were killed by a " + damager.getName());
-                    pClass.getPlayer().teleport(new Location(pClass.getPlayer().getWorld(), -108, 110, -81));
+                    pClass.getPlayer().teleport(new Location(pClass.getPlayer().getWorld(), 2,73,-22));
                     pClass.setHP(pClass.getHealth());
                 }
 

@@ -9,6 +9,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Zombie;
 
 import me.leaf.devs.utils.MobHealthUpdater;
 
@@ -92,6 +93,10 @@ public class EntityBuilder {
         ((LivingEntity) ent).setHealth(health);
         LivingEntity livingEnt = (LivingEntity) ent;
         ent.setFireTicks(0);
+
+        if(ent instanceof Zombie) {
+            ((Zombie) ent).setAdult();
+        }
         if(this.level >= 11 && this.level <= 25) {
             // give the entity a full set of leather and a stone sword
             livingEnt.getEquipment().setHelmet(new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_HELMET));

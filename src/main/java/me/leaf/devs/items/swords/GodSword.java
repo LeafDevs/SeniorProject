@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack;
 import me.leaf.devs.items.ClassType;
 import me.leaf.devs.items.Item;
 import me.leaf.devs.items.ItemType;
-import me.leaf.devs.items.wands.BasicWand;
 import me.leaf.devs.utils.Rarity;
 
 public class GodSword {
@@ -19,7 +18,7 @@ public class GodSword {
     }
 
     public static Item getItem() {
-        Item item = new BasicWand().item;
+        Item item = new GodSword().item;
         return item;
     }
 }

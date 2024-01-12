@@ -67,6 +67,7 @@ public class DataUtils {
     public static void savePlayerData(PClass plr) {
         File file = new File(Main.getPlugin().getDataFolder() + File.separator + "playerData" + File.separator + plr.getPlayer().getUniqueId().toString() + ".yml");
         if (file.exists()) {
+
             FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
             int health = plr.getHealth();
             int defense = plr.getDefense();
@@ -86,6 +87,8 @@ public class DataUtils {
             int enchanting_level = plr.getEnchantingLevel();
             int alchemy_level = plr.getAlchemyLevel();
             String classType = plr.getClassType().getName();
+
+            Main.getPlugin().getLogger().info("Class: " + classType);
 
 
             fileConfiguration.set("health", health);
