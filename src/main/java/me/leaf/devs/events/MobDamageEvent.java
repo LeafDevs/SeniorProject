@@ -68,7 +68,19 @@ public class MobDamageEvent implements Listener {
                     damage += (crit_damage * 3);
                 }
 
+                EntityBuilder eb = EntityBuilder.entityGroups.get(e.getEntity());
+
+                int defense = eb.getDefense();
+
                 damage += (damage * (1 + (strength / 5)));
+
+                int def100 = defense + 100;
+
+                double damageReduction = (double) defense / def100;
+
+                double negatedDmg = (int) (damage / damageReduction);
+
+                damage = (int) (damage - negatedDmg);
 
                 e.setDamage(damage);
 

@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.leaf.devs.Main;
+import me.leaf.devs.entities.Boss;
 import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.items.Armor;
 import me.leaf.devs.utils.DataUtils;
@@ -30,11 +31,9 @@ public class MobDeathEvent implements Listener{
             PClass pClass = DataUtils.getPlayerData(plr);
 
             try {
-                EntityBuilder eb = EntityBuilder.entityGroups.get((Entity) e.getEntity());
-                if(eb == null) {
-                    eb = new EntityBuilder("NULL", 0, 1, 1, EntityType.AREA_EFFECT_CLOUD);
-                }
+                    EntityBuilder eb = EntityBuilder.entityGroups.get((Entity) e.getEntity());
                     int xp = (int) 10*(eb.getLevel()-pClass.getLevel()+30);
+
                     if(xp <= 0) {
                         xp = 0;
                     }
@@ -64,7 +63,7 @@ public class MobDeathEvent implements Listener{
                     }, 60L);
 
                     int totalLevels = xp / 100;
-                    if(totalLevels >= 1) pClass.getPlayer().sendMessage("§aYou have gained: " + totalLevels + " Levels. You are now Level " + (pClass.getLevel() + totalLevels) + "§o(§6§o" + pClass.getLevel() + "§a§o>§6§o" + (pClass.getLevel() + totalLevels) + "§a§o)");
+                    if(totalLevels >= 1) pClass.getPlayer().sendMessage("§aYou have gained: " + totalLevels + " Levels. You are now Level " + (pClass.getLevel() + totalLevels) + " §2§o(§6§o" + pClass.getLevel() + "§2§o>§6§o" + (pClass.getLevel() + totalLevels) + "§2§o)");
                     for(int i = 0; i <= totalLevels; i++) {
                         if(pClass.getXP() >= 100) {
                             pClass.addLevel(1);

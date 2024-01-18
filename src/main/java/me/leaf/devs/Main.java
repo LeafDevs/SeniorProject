@@ -12,8 +12,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.leaf.devs.commands.*;
 import me.leaf.devs.events.*;
+import me.leaf.devs.entities.Boss;
 import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.entities.Entity.Skeleton;
+import me.leaf.devs.entities.Entity.Boss.SkeletonKnight;
 import me.leaf.devs.items.Armor;
 import me.leaf.devs.items.Item;
 import me.leaf.devs.items.armor.boots.HolyBoots;
@@ -29,6 +31,7 @@ public class Main extends JavaPlugin {
 
     public static HashMap<String, Item> items = new HashMap<>();
     public static HashMap<String, EntityBuilder> entities = new HashMap<>();
+    public static HashMap<String, Boss> bosses = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -62,6 +65,7 @@ public class Main extends JavaPlugin {
         getLogger().info("Registering entities...");
         entities.put("zombie", new me.leaf.devs.entities.Entity.Zombie());
         entities.put("skeleton", new Skeleton());
+        bosses.put("skeleton_knight", new SkeletonKnight());
         getLogger().info("Registered 0 Entities with 0 Errors");
 
         File dataFolder = getDataFolder();

@@ -23,6 +23,16 @@ public class EntityBuilder {
         this.level = level;
         this.damage = damage;
         this.type = type;
+        this.defense = 0;
+    }
+
+    public EntityBuilder(String name, int health, int level, int damage, EntityType type, int defense) {
+        this.name = name;
+        this.health = health;
+        this.level = level;
+        this.damage = damage;
+        this.type = type;
+        this.defense = defense;
     }
 
     private String name;
@@ -31,11 +41,18 @@ public class EntityBuilder {
     private int damage;
     private EntityType type;
     private Entity ent;
+    private int defense;
+
+    private boolean boss = false;
 
     private ArmorStand armorStand;
 
     public String getName() {
         return name;
+    }
+
+    public int getDefense() {
+        return defense;
     }
 
     public int getHealth() {
@@ -52,6 +69,20 @@ public class EntityBuilder {
 
     public ArmorStand getArmorStand() {
         return armorStand;
+    }
+
+    public EntityBuilder setBoss() {
+        this.boss = true;
+        return this;
+    }
+
+    public boolean isBoss() {
+        return boss;
+    }
+
+    public EntityBuilder setDefense(int def) {
+        this.defense = def;
+        return this;
     }
 
     public void createArmorStand(World world) {
@@ -78,12 +109,14 @@ public class EntityBuilder {
         armorStand.remove();
     }
     
-    public void setHealth(int health) {
+    public EntityBuilder setHealth(int health) {
         this.health = health;
+        return this;
     }
 
-    public void setLevel(int level) {
+    public EntityBuilder setLevel(int level) {
         this.level = level;
+        return this;
     }
 
     public void spawn(Location loc) {
@@ -98,7 +131,6 @@ public class EntityBuilder {
             ((Zombie) ent).setAdult();
         }
         if(this.level >= 11 && this.level <= 25) {
-            // give the entity a full set of leather and a stone sword
             livingEnt.getEquipment().setHelmet(new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_HELMET));
             livingEnt.getEquipment().setChestplate(new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_CHESTPLATE));
             livingEnt.getEquipment().setLeggings(new org.bukkit.inventory.ItemStack(org.bukkit.Material.LEATHER_LEGGINGS));
