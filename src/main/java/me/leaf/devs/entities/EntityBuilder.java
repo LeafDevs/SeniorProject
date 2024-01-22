@@ -11,9 +11,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
 
+import me.leaf.devs.entities.Entity.Default;
 import me.leaf.devs.utils.MobHealthUpdater;
 
-public class EntityBuilder {
+public abstract class EntityBuilder {
+
+    public static EntityBuilder def = new Default();
+
 
     public static HashMap<Entity, EntityBuilder> entityGroups = new HashMap<>();
 
@@ -46,6 +50,10 @@ public class EntityBuilder {
     private boolean boss = false;
 
     private ArmorStand armorStand;
+
+    public Entity getEntity() {
+        return ent;
+    }
 
     public String getName() {
         return name;
@@ -85,6 +93,11 @@ public class EntityBuilder {
         return this;
     }
 
+    public EntityBuilder setMaxHealth(int hp) {
+        this.health = hp;
+        return this;
+    }
+
     public void createArmorStand(World world) {
         ArmorStand aStand = (ArmorStand) world.spawnEntity(ent.getLocation(), EntityType.ARMOR_STAND);
         aStand.setGravity(false);
@@ -119,6 +132,11 @@ public class EntityBuilder {
         return this;
     }
 
+
+    public void initRunnables() {
+        return;
+    }
+
     public void spawn(Location loc) {
         Entity ent = loc.getWorld().spawnEntity(loc, type);
         entityGroups.put(ent, this);
@@ -126,6 +144,9 @@ public class EntityBuilder {
         ((LivingEntity) ent).setHealth(health);
         LivingEntity livingEnt = (LivingEntity) ent;
         ent.setFireTicks(0);
+
+
+
 
         if(ent instanceof Zombie) {
             ((Zombie) ent).setAdult();
@@ -166,6 +187,7 @@ public class EntityBuilder {
         this.ent = ent;
         createArmorStand(loc.getWorld());
         new MobHealthUpdater(ent, this);
+        this.initRunnables();
         
     }
 

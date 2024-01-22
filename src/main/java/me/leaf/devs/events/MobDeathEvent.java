@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import me.leaf.devs.Main;
-import me.leaf.devs.entities.Boss;
+
 import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.items.Armor;
 import me.leaf.devs.utils.DataUtils;

@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import me.leaf.devs.Main;
 import me.leaf.devs.entities.EntityBuilder;
 
 public class TeleportHit extends BukkitRunnable {
@@ -15,14 +16,20 @@ public class TeleportHit extends BukkitRunnable {
     private Entity ent;
     private EntityBuilder eb;
 
-    public TeleportHit(Entity ent, EntityBuilder eb) {
-        this.ent = ent;
+    public TeleportHit(EntityBuilder eb) {
+        this.ent = eb.getEntity();
         this.eb = eb;
+        this.runTaskTimer(Main.getPlugin(), 0, 20);
     }
 
     @Override
     public void run() {
-        if (Math.random() < 0.25) {
+        if(ent.isDead()) {
+            this.cancel();
+        }
+        double rand = Math.random();
+        if (rand < 0.25) {
+            System.out.println(rand + " rand");
             Player closestPlayer = getClosestPlayer(ent, 15);
 
             if (closestPlayer != null) {

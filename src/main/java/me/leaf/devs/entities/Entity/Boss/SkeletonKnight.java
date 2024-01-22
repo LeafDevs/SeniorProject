@@ -4,30 +4,23 @@ import javax.swing.text.html.parser.Entity;
 
 import org.bukkit.entity.EntityType;
 
-import me.leaf.devs.entities.Boss;
+import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.utils.Attacks.TeleportHit;
 
-public class SkeletonKnight extends Boss{
+public class SkeletonKnight extends EntityBuilder {
 
     public SkeletonKnight() {
-        super(EntityType.SKELETON, 50);
+        super("Zombie Knight", 250000, 250, 250, EntityType.ZOMBIE);
         this.setHealth(250000);
-        this.setDamage(2500);
-        this.setName("Skeleton Knight");
         this.setDefense(25000);
-        
-
+        this.isBoss();
     }
+
 
     @Override
     public void initRunnables() {
-        new TeleportHit(getArmorStand(), this.toEntityBuilder());
+        new TeleportHit(this);
     
-    }
-
-    @Override
-    public String getSpawnMessage() {
-        return "A great evil has spawnned.";
     }
     
 }

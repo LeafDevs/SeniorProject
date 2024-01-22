@@ -12,7 +12,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.leaf.devs.commands.*;
 import me.leaf.devs.events.*;
-import me.leaf.devs.entities.Boss;
 import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.entities.Entity.Skeleton;
 import me.leaf.devs.entities.Entity.Boss.SkeletonKnight;
@@ -22,6 +21,7 @@ import me.leaf.devs.items.armor.boots.HolyBoots;
 import me.leaf.devs.items.swords.BasicSword;
 import me.leaf.devs.items.swords.GodSword;
 import me.leaf.devs.items.wands.BasicWand;
+import me.leaf.devs.listeners.ArmorEquipEvent;
 import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
 
@@ -31,7 +31,6 @@ public class Main extends JavaPlugin {
 
     public static HashMap<String, Item> items = new HashMap<>();
     public static HashMap<String, EntityBuilder> entities = new HashMap<>();
-    public static HashMap<String, Boss> bosses = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -42,7 +41,8 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ItemChangeEvent(), this);
         getServer().getPluginManager().registerEvents(new ChatMessageSentEvent(), this);
         getServer().getPluginManager().registerEvents(new MobDeathEvent(), this);
-        getServer().getPluginManager().registerEvents(new PlayerDamageEvent(), plugin);
+        getServer().getPluginManager().registerEvents(new PlayerDamageEvent(), this);
+        ArmorEquipEvent.registerListener(this);
         getLogger().info("Registered 3 Event with 0 Errors");
 
         getLogger().info("Registering commands...");
@@ -53,20 +53,17 @@ public class Main extends JavaPlugin {
         getCommand("playsong").setExecutor(new PlaySongCommand());
         getCommand("class").setExecutor(new ClassCommand());
         getCommand("fixstats").setExecutor(new FixStatsCommand());
-        getLogger().info("Registered 3 Commands with 0 Errors");
 
         getLogger().info("Registering items...");
         items.put("basic_wand", BasicWand.getItem());
         items.put("basic_sword", BasicSword.getItem());
         items.put("holy_boots", Armor.toItem(HolyBoots.getItem()));
         items.put("god_sword", GodSword.getItem());
-        getLogger().info("Registered 2 Items with 0 Errors");
 
         getLogger().info("Registering entities...");
         entities.put("zombie", new me.leaf.devs.entities.Entity.Zombie());
         entities.put("skeleton", new Skeleton());
-        bosses.put("skeleton_knight", new SkeletonKnight());
-        getLogger().info("Registered 0 Entities with 0 Errors");
+        entities.put("zomb_knight", new SkeletonKnight());
 
         File dataFolder = getDataFolder();
         File songsFolder = new File(dataFolder, "songs");

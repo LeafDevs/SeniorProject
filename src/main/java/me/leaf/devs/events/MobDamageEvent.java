@@ -64,23 +64,14 @@ public class MobDamageEvent implements Listener {
                 int crit_chance = pClass.getCritChance();
             
                 int crit = (int) (Math.random() * 100);
+                boolean critical = false;
                 if(crit <= crit_chance) {
                     damage += (crit_damage * 3);
                 }
 
                 EntityBuilder eb = EntityBuilder.entityGroups.get(e.getEntity());
 
-                int defense = eb.getDefense();
-
                 damage += (damage * (1 + (strength / 5)));
-
-                int def100 = defense + 100;
-
-                double damageReduction = (double) defense / def100;
-
-                double negatedDmg = (int) (damage / damageReduction);
-
-                damage = (int) (damage - negatedDmg);
 
                 e.setDamage(damage);
 
@@ -89,8 +80,14 @@ public class MobDamageEvent implements Listener {
                 aStand.setGravity(false);
                 aStand.setVisible(false);
                 aStand.setCustomNameVisible(true);
-                aStand.setCustomName("§c" + damage);
                 aStand.setSmall(true);
+
+                if(critical) {
+                    aStand.setCustomName("§f✦ §e" + damage + " §f✦");
+                } else {
+                    aStand.setCustomName("§e" + damage);
+                }
+
 
                 // create a runnable to remove the armor stand after 1 second
                 org.bukkit.Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {

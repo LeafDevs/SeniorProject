@@ -1,5 +1,7 @@
 package me.leaf.devs.events;
 
+import javax.swing.text.html.parser.Entity;
+
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,9 +23,9 @@ public class PlayerDamageEvent implements Listener{
             if(e instanceof EntityDamageByEntityEvent) {    
                 EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
                 EntityBuilder damager = EntityBuilder.entityGroups.get(event.getDamager());
-
+                
                 if(damager == null) {
-                    damager = new EntityBuilder("NULL", 0, 1, 1, EntityType.AREA_EFFECT_CLOUD);
+                    damager = EntityBuilder.def;
                 }
                 int damage = damager.getDamage();
 
