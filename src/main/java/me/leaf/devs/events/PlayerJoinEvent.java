@@ -12,6 +12,7 @@ import me.leaf.devs.items.ClassType;
 import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
+import me.leaf.devs.utils.Regen;
 
 public class PlayerJoinEvent implements Listener{
 
@@ -50,6 +51,7 @@ public class PlayerJoinEvent implements Listener{
         plr.setHealth(20);
 
         new ActionBar(DataUtils.getPlayerData(plr));
+        new Regen(pClass);
     }
 
     @EventHandler

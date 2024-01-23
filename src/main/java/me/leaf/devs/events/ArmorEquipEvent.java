@@ -1,23 +1,35 @@
 package me.leaf.devs.events;
 
-import java.net.http.WebSocket.Listener;
-
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 import de.tr7zw.nbtapi.NBTItem;
+import me.leaf.devs.listeners.ArmorEquipEvent.EquipMethod;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
 
-public class ArmorEquipEvent implements Listener {
+public class ArmorEquipEvent implements Listener{
 
     @EventHandler
     public void onArmorEquip(me.leaf.devs.listeners.ArmorEquipEvent event) {
-        ItemStack oldItem = event.getOldArmorPiece();
-        ItemStack newitem = event.getNewArmorPiece();
+        ItemStack oldItem = null;
+        ItemStack newitem = null;
 
-        if(oldItem != null || oldItem.getType() != Material.AIR) {
+        if(event.getOldArmorPiece() != null) {
+            oldItem = event.getOldArmorPiece();
+        }
+
+        if(event.getNewArmorPiece() != null) {
+            newitem = event.getNewArmorPiece();
+        }
+
+        if(event.getMethod() == EquipMethod.HOTBAR || event.getMethod() == EquipMethod.HOTBAR_SWAP) {
+            event.setCancelled(true);
+        }
+
+        if(oldItem != null) {
 
             NBTItem item = new NBTItem(oldItem);
 
@@ -45,7 +57,7 @@ public class ArmorEquipEvent implements Listener {
         }
 
 
-        if(newitem != null || newitem.getType() != Material.AIR) {
+        if(newitem != null) {
 
             NBTItem item = new NBTItem(newitem);
 

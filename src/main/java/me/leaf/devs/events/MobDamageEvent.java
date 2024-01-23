@@ -1,5 +1,6 @@
 package me.leaf.devs.events;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -44,18 +45,19 @@ public class MobDamageEvent implements Listener {
                 PClass pClass = DataUtils.getPlayerData(player);
 
                 org.bukkit.inventory.ItemStack item = player.getInventory().getItemInMainHand();
-                NBTItem nbtItem = new NBTItem(item);
+                if(item != null || item.getType() != Material.AIR) {
+                    NBTItem nbtItem = new NBTItem(item);
 
-                if(nbtItem.hasKey("class")) {
-                    ClassType type = ClassType.getClassType(nbtItem.getString("class"));
-
-                    if(pClass.getClassType() != type) {
-                        pClass.getPlayer().sendMessage("§cThis item is not for your class! You must be a " + type.getName() + " to use this item!");
-                        e.setCancelled(true);
-                        return;
+                    if(nbtItem.hasKey("class")) {
+                        ClassType type = ClassType.getClassType(nbtItem.getString("class"));
+    
+                        if(pClass.getClassType() != type) {
+                            pClass.getPlayer().sendMessage("§cThis item is not for your class! You must be a " + type.getName() + " to use this item!");
+                            e.setCancelled(true);
+                            return;
+                        }
                     }
                 }
-                
 
                 int damage = (int) e.getDamage();
 
@@ -68,8 +70,6 @@ public class MobDamageEvent implements Listener {
                 if(crit <= crit_chance) {
                     damage += (crit_damage * 3);
                 }
-
-                EntityBuilder eb = EntityBuilder.entityGroups.get(e.getEntity());
 
                 damage += (damage * (1 + (strength / 5)));
 

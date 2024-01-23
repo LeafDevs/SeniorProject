@@ -55,6 +55,11 @@ public abstract class EntityBuilder {
         return ent;
     }
 
+    public EntityBuilder setDamage(int damage) {
+        this.damage = damage;
+        return this;
+    }
+
     public String getName() {
         return name;
     }

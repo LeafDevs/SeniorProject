@@ -5,6 +5,7 @@ import javax.swing.text.html.parser.Entity;
 import org.bukkit.entity.EntityType;
 
 import me.leaf.devs.entities.EntityBuilder;
+import me.leaf.devs.utils.Attacks.NextForm;
 import me.leaf.devs.utils.Attacks.TeleportHit;
 
 public class SkeletonKnight extends EntityBuilder {
@@ -20,7 +21,7 @@ public class SkeletonKnight extends EntityBuilder {
     @Override
     public void initRunnables() {
         new TeleportHit(this);
-    
+        new NextForm(this, 0);
     }
     
 }

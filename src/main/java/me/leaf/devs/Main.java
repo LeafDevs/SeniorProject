@@ -7,6 +7,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,7 +43,9 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatMessageSentEvent(), this);
         getServer().getPluginManager().registerEvents(new MobDeathEvent(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageEvent(), this);
+        
         ArmorEquipEvent.registerListener(this);
+
         getLogger().info("Registered 3 Event with 0 Errors");
 
         getLogger().info("Registering commands...");
