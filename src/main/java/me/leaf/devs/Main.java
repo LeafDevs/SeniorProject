@@ -25,6 +25,7 @@ import me.leaf.devs.items.wands.BasicWand;
 import me.leaf.devs.listeners.ArmorEquipEvent;
 import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
+import me.leaf.devs.utils.Regen;
 
 public class Main extends JavaPlugin {
 
@@ -96,6 +97,7 @@ public class Main extends JavaPlugin {
         Bukkit.getOnlinePlayers().forEach((p) -> {
             DataUtils.loadPlayerData(p);
             new ActionBar(DataUtils.getPlayerData(p));
+            new Regen(DataUtils.getPlayerData(p));
         });
     }
 

@@ -1,5 +1,6 @@
 package me.leaf.devs.utils.Attacks;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -21,30 +22,23 @@ public class NextForm extends BukkitRunnable {
         this.dead = false;
         this.taskScheduled = false;
 
-        this.runTaskTimer(Main.getPlugin(), 0L, 5L);
+        this.runTaskTimer(Main.getPlugin(), 0L, 20L);
     }
 
     @Override
     public void run() {
-        if (form >= 3) {
+        if(form >= 4) {
+            new AOEAttack(eb);
             this.cancel();
             return;
         }
-
-        if(ent.isDead() && form == 3) {
-            eb.setHealth(eb.getHealth() + 125000);
-            eb.setDamage(125);
-            eb.spawn(eb.getEntity().getLocation());
-            
+        if(this.ent.isDead()) {
+            this.cancel();
+            Bukkit.getServer().broadcastMessage("Is Canceled: " + this.isCancelled());
+            this.eb.setHealth(eb.getHealth() + 125000);
+            eb.respawn(ent.getLocation());
+            new NextForm(eb, form + 1);
             return;
-        }
-
-        if (ent.isDead() && !taskScheduled && form < 3) {
-            int formNormal = form + 1;
-            System.out.println(form + " " + formNormal);
-            eb.setHealth(eb.getHealth() + (25000 * formNormal));
-            eb.spawn(eb.getEntity().getLocation());
-            form++;
         }
     }
 }
