@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventPriority;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,6 +17,7 @@ import me.leaf.devs.commands.*;
 import me.leaf.devs.events.*;
 import me.leaf.devs.entities.EntityBuilder;
 import me.leaf.devs.entities.Entity.Skeleton;
+import me.leaf.devs.entities.Entity.TestPlayer;
 import me.leaf.devs.entities.Entity.Boss.SkeletonKnight;
 import me.leaf.devs.items.Armor;
 import me.leaf.devs.items.Item;
@@ -23,9 +26,12 @@ import me.leaf.devs.items.swords.BasicSword;
 import me.leaf.devs.items.swords.GodSword;
 import me.leaf.devs.items.wands.BasicWand;
 import me.leaf.devs.listeners.ArmorEquipEvent;
-import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
-import me.leaf.devs.utils.Regen;
+import me.leaf.devs.utils.Runnables.Player.ActionBar;
+import me.leaf.devs.utils.Runnables.Player.Regen;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.reflections.Reflections;
+import sun.nio.cs.UTF_8;
 
 public class Main extends JavaPlugin {
 
@@ -44,6 +50,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatMessageSentEvent(), this);
         getServer().getPluginManager().registerEvents(new MobDeathEvent(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageEvent(), this);
+        getServer().getPluginManager().registerEvents(new NPCDeathEvent(), this);
         
         ArmorEquipEvent.registerListener(this);
 
@@ -59,15 +66,26 @@ public class Main extends JavaPlugin {
         getCommand("fixstats").setExecutor(new FixStatsCommand());
 
         getLogger().info("Registering items...");
-        items.put("basic_wand", BasicWand.getItem());
-        items.put("basic_sword", BasicSword.getItem());
-        items.put("holy_boots", Armor.toItem(HolyBoots.getItem()));
-        items.put("god_sword", GodSword.getItem());
+        Reflections reflections = new Reflections("me.leaf.devs.items");
+        Set<Class<? extends Item>> classes = reflections.getSubTypesOf(Item.class);
+        for (Class<? extends Item> aClass : classes) {
+            try {
+                Item instance = aClass.newInstance();
+                items.put(instance.getName().toLowerCase().replace(" ", "_"), instance);
+            } catch (InstantiationException e) {
+                getLogger().warning("Failed to register item with class: " + aClass.getName() + "\nInstantiationException");
+            } catch (IllegalAccessException e) {
+                getLogger().warning("Failed to register item with class: " + aClass.getName() +  "\nIllegalAccessException");
+            }
+
+        }
+
 
         getLogger().info("Registering entities...");
         entities.put("zombie", new me.leaf.devs.entities.Entity.Zombie());
         entities.put("skeleton", new Skeleton());
         entities.put("zomb_knight", new SkeletonKnight());
+        entities.put("test_player", new TestPlayer());
 
         File dataFolder = getDataFolder();
         File songsFolder = new File(dataFolder, "songs");

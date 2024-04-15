@@ -5,7 +5,7 @@ version: 1.0-SNAPSHOT
 main: me.leaf.devs.Main
 author: Leaf
 load: POSTWORLD
-depends: [NBTAPI]
+depends: [NBTAPI, Sentinel, Citizens]
 commands:
   item:
     description: Gives you an item

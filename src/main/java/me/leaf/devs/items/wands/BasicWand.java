@@ -14,7 +14,7 @@ public class BasicWand {
 
     public BasicWand() {
         ItemStack item = new ItemStack(Material.STICK);
-        this.item = new Item("Basic Wand", 0, 0, 0, 0, 0, 0, 0, 10, Rarity.COMMON, item,ItemType.WAND, ClassType.MAGE,"A basic wand.");
+        this.item = new Item("Beating Stick", 4, 0, 0, 0, 0, 0, 0, 0, Rarity.COMMON, item,ItemType.WAND, ClassType.MAGE,"The stick you were beat with.", "Later acquired by you after escaping.");
     }
 
     public static Item getItem() {

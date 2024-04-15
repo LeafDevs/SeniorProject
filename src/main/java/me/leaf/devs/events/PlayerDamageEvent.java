@@ -19,7 +19,7 @@ public class PlayerDamageEvent implements Listener{
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
-        if(e.getEntity() instanceof Player) {
+        if(e.getEntity() instanceof Player && !e.getEntity().hasMetadata("NPC")) {
             if(e instanceof EntityDamageByEntityEvent) {    
                 EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
                 EntityBuilder damager = EntityBuilder.entityGroups.get(event.getDamager());

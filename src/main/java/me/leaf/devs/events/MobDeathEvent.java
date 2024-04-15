@@ -24,6 +24,10 @@ public class MobDeathEvent implements Listener{
 
         LivingEntity ent = e.getEntity();
 
+        if(ent instanceof Player) {
+            return;
+        }
+
         if(ent.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK && ent.getKiller() instanceof Player && !(e.getEntity() instanceof ArmorStand)) {
 
             Player plr = ent.getKiller();

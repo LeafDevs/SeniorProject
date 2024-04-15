@@ -9,10 +9,10 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.leaf.devs.items.ClassType;
-import me.leaf.devs.utils.ActionBar;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
-import me.leaf.devs.utils.Regen;
+import me.leaf.devs.utils.Runnables.Player.ActionBar;
+import me.leaf.devs.utils.Runnables.Player.Regen;
 
 public class PlayerJoinEvent implements Listener{
 

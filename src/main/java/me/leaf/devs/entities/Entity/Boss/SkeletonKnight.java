@@ -5,8 +5,8 @@ import javax.swing.text.html.parser.Entity;
 import org.bukkit.entity.EntityType;
 
 import me.leaf.devs.entities.EntityBuilder;
-import me.leaf.devs.utils.Attacks.NextForm;
-import me.leaf.devs.utils.Attacks.TeleportHit;
+import me.leaf.devs.utils.Runnables.Attacks.NextForm;
+import me.leaf.devs.utils.Runnables.Attacks.TeleportHit;
 
 public class SkeletonKnight extends EntityBuilder {
 

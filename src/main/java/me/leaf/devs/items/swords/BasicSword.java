@@ -14,7 +14,7 @@ public class BasicSword {
     
     public BasicSword() {
         ItemStack item = new ItemStack(Material.WOODEN_SWORD);
-        this.item = new Item("Basic Sword", 10, 0, 0, 0, 0, 0, 0, 0, Rarity.COMMON, item,ItemType.SWORD, ClassType.WARRIOR,"A basic sword.");
+        this.item = new Item("Rusty Sword", 25, 5, 0, 0, 0, 0, 0, 0, Rarity.COMMON, item,ItemType.SWORD, ClassType.ALL,"A Rusty sword you found along your way.");
     }
 
     public static Item getItem() {

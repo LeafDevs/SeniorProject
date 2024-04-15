@@ -16,7 +16,7 @@ public class HolyBoots{
     private Armor armor;
 
     public HolyBoots() {
-        this.armor = new Armor("Holy Boots", 125, 250, 0, 10, 1225, 300, 120, Rarity.BLESSED, new ItemStack(Material.IRON_BOOTS), ArmorType.BOOTS, ClassType.ALL, "Boots that were blessed by", "the Almighty God");
+        this.armor = new Armor("Holy Boots", 125, 250, 0, 10, 1125, 300, 120, Rarity.BLESSED, new ItemStack(Material.IRON_BOOTS), ArmorType.BOOTS, ClassType.ALL, "For those who wish to protect.");
     }
 
     public static Armor getItem() {

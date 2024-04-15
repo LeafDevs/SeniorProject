@@ -12,7 +12,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
 
 import me.leaf.devs.entities.Entity.Default;
-import me.leaf.devs.utils.MobHealthUpdater;
+import me.leaf.devs.utils.Runnables.Entity.MobHealthUpdater;
 
 public abstract class EntityBuilder {
 

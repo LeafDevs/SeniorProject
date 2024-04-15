@@ -14,7 +14,7 @@ public class GodSword {
 
     public GodSword() {
         ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-        this.item = new Item("God Sword", 999, 999, 999, 999, 999, 999, 999, 999, Rarity.SACRED, item ,ItemType.SWORD, ClassType.ALL,"Sword forged by the", "gods for their children.");
+        this.item = new Item("God Sword", 999, 999, 999, 999, 999, 999, 999, 999, Rarity.SACRED, item ,ItemType.SWORD, ClassType.ALL,"Sword forged by the", "\u00a7cgods \u00a77for their children.");
     }
 
     public static Item getItem() {
