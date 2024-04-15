@@ -66,11 +66,14 @@ public class Main extends JavaPlugin {
         getCommand("fixstats").setExecutor(new FixStatsCommand());
 
         getLogger().info("Registering items...");
-        Reflections reflections = new Reflections("me.leaf.devs.items");
+        Reflections reflections = new Reflections("me.leaf");
         Set<Class<? extends Item>> classes = reflections.getSubTypesOf(Item.class);
+        int i = 0;
         for (Class<? extends Item> aClass : classes) {
             try {
+                i++;
                 Item instance = aClass.newInstance();
+                getLogger().info("Registering Item with ID: " + instance.getName().toLowerCase().replace(" ", "_"));
                 items.put(instance.getName().toLowerCase().replace(" ", "_"), instance);
             } catch (InstantiationException e) {
                 getLogger().warning("Failed to register item with class: " + aClass.getName() + "\nInstantiationException");
@@ -80,7 +83,7 @@ public class Main extends JavaPlugin {
 
         }
 
-
+        getLogger().info("Registered a total of " + i + "Items!");
         getLogger().info("Registering entities...");
         entities.put("zombie", new me.leaf.devs.entities.Entity.Zombie());
         entities.put("skeleton", new Skeleton());
