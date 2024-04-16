@@ -2,8 +2,10 @@ package me.leaf.devs.items;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
+import me.leaf.devs.Main;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -87,6 +89,10 @@ public class Item {
         return classType;
     }
 
+
+    public void registerItem() {
+        Main.items.put(this.getName().toLowerCase().replace(" ", "_"), this);
+    }
 
     public ItemStack createItem() {
         

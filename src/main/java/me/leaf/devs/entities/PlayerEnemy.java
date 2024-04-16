@@ -21,10 +21,18 @@ public class PlayerEnemy extends EntityBuilder {
 
 
     public PlayerEnemy(String name, int level, int health, int damage, Skin skin) {
-        super(name, level, health, damage, null);
+        super(name, health, level, damage, null);
         this.name = name;
         this.level = level;
         this.skin = skin;
+    }
+
+    public PlayerEnemy(String name, int level, int health, int damage, Skin skin, boolean isBoss) {
+        super(name, health, level, damage, null);
+        this.name = name;
+        this.level = level;
+        this.skin = skin;
+        this.setBoss();
     }
 
     @Override
