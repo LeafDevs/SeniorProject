@@ -5,7 +5,13 @@ import org.bukkit.entity.Player;
 import me.leaf.devs.Main;
 import me.leaf.devs.items.ClassType;
 
+import java.util.Date;
+import java.util.HashMap;
+
+
 public class PClass {
+
+    private HashMap<String, Long> cooldowns = new HashMap<>();
     
     public PClass(int health, int defense, int strength, int speed, int mana, int luck, int level, int xp, int crit_damage, int crit_chance, int magic_damage, int combat_xp, int enchanting_xp, int alchemy_xp, int combat_level, int enchanting_level, int alchemy_level, String classType, Player plr) {
         this.health = health;
@@ -27,6 +33,7 @@ public class PClass {
         this.alchemy_level = alchemy_level;
         this.plr = plr;
         this.classType = ClassType.getClassType(classType);
+
     }
 
     private int health;
@@ -52,6 +59,8 @@ public class PClass {
 
 
     private int currentHP = health;
+
+    private int currentMana = mana;
 
     public Player getPlayer() {
         return plr;
@@ -215,6 +224,13 @@ public class PClass {
     }
 
 
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    public void setCurrentMana(int currentMana) {
+        this.currentMana = currentMana;
+    }
 
     public void setHP(int HP) {
         this.currentHP = HP;
@@ -222,5 +238,19 @@ public class PClass {
 
     public int getHP() {
         return this.currentHP;
+    }
+
+    public PClass addCooldown(String cd) {
+        cooldowns.put(cd, System.currentTimeMillis());
+        return this;
+    }
+
+    public PClass removeCooldown(String cd) {
+        cooldowns.remove(cd);
+        return this;
+    }
+
+    public HashMap<String, Long> getCooldowns() {
+        return this.cooldowns;
     }
 }

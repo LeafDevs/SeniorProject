@@ -18,7 +18,6 @@ public class GodSword {
     }
 
     public static Item getItem() {
-        Item item = new GodSword().item;
-        return item;
+        return new GodSword().item;
     }
 }

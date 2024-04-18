@@ -2,6 +2,7 @@ package me.leaf.devs.entities.Entity.Boss;
 
 import me.leaf.devs.entities.*;
 import me.leaf.devs.utils.Equipment;
+import me.leaf.devs.utils.Runnables.Entity.BossBarUpdater;
 import me.leaf.devs.utils.Runnables.Entity.UpdateNPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,14 +12,15 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class TheKing extends PlayerEnemy {
+import java.util.ArrayList;
 
-    private BossBar bossbar;
+public class TheKing extends Boss {
+
     public TheKing() {
         super("King Caesar", 45, 22500, 250, Skins.KING.asSkin());
-        this.setBoss();
     }
 
     @Override
@@ -38,7 +40,10 @@ public class TheKing extends PlayerEnemy {
         this.npc = entity;
 
         this.ent = entity.asEntity();
-        bossbar = Bukkit.createBossBar("\u00a7cThe King", BarColor.RED, BarStyle.SOLID);
+        this.createBossBar();
+
+        new BossBarUpdater(this);
+
 
         EntityBuilder.entityGroups.put(ent, this);
 
@@ -47,14 +52,4 @@ public class TheKing extends PlayerEnemy {
         return this.ent;
     }
 
-    private void updateBossbar() {
-        int maxhp = getHealth();
-        int hp = (int) this.npc.getTrait().health;
-        int percentage = hp / maxhp;
-        bossbar.setProgress(percentage);
-
-        if(bossbar.getProgress() <= 1) {
-            bossbar.removeAll();
-        }
-    }
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.leaf.devs.Main;
+import me.leaf.devs.items.abilities.Ability;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -44,6 +45,8 @@ public class Item {
     private ItemStack item;
     private String[] description;
     private ClassType classType;
+
+    private Ability ablty;
 
     public String getName() {
         return name;
@@ -94,6 +97,11 @@ public class Item {
         Main.items.put(this.getName().toLowerCase().replace(" ", "_"), this);
     }
 
+    public Item setAbility(Ability ablty) {
+        this.ablty = ablty;
+        return this;
+    }
+
     public ItemStack createItem() {
         
         NBTItem nbt = new NBTItem(item);
@@ -105,6 +113,7 @@ public class Item {
         nbt.setString("health", "" + health);
         nbt.setString("defense", "" + defense);
         nbt.setString("magic_damage", "" + magic_damage);
+        nbt.setString("ability", ablty.getName().toLowerCase());
         nbt.setString("UUID", java.util.UUID.randomUUID().toString());
         
 

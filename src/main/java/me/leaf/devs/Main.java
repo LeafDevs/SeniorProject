@@ -2,23 +2,30 @@ package me.leaf.devs;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
-import me.leaf.devs.entities.Entity.Beginner.InfectedCitizen;
-import me.leaf.devs.entities.Entity.Beginner.Knight;
-import me.leaf.devs.entities.Entity.Beginner.KnightArcher;
+import me.leaf.devs.entities.Entity.Beginner.*;
 import me.leaf.devs.entities.Entity.Boss.TheKing;
+import me.leaf.devs.entities.NPCS.NPC_1;
+import me.leaf.devs.entities.Skins;
 import me.leaf.devs.items.Armor;
+import me.leaf.devs.items.abilities.Ability;
+import me.leaf.devs.items.abilities.SpawnPack;
+import me.leaf.devs.items.abilities.WarriorsRevenge;
 import me.leaf.devs.items.armor.boots.HolyBoots;
 import me.leaf.devs.items.armor.chestplate.HolyChestplate;
 import me.leaf.devs.items.armor.helmet.HolyHelmet;
 import me.leaf.devs.items.armor.leggings.HolyLeggings;
+import me.leaf.devs.items.misc.DogStick;
 import me.leaf.devs.items.swords.BasicSword;
 import me.leaf.devs.items.swords.GodSword;
+import me.leaf.devs.items.swords.WarAxe;
 import me.leaf.devs.items.wands.BasicWand;
+import me.leaf.devs.listeners.ItemAbility;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPCRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,6 +45,7 @@ public class Main extends JavaPlugin {
 
     public static HashMap<String, Item> items = new HashMap<>();
     public static HashMap<String, EntityBuilder> entities = new HashMap<>();
+    public static HashMap<String, Ability> abilities = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -50,10 +58,14 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MobDeathEvent(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageEvent(), this);
         getServer().getPluginManager().registerEvents(new NPCDeathEvent(), this);
+        getServer().getPluginManager().registerEvents(new ItemAbility(), this);
+
+        CitizensAPI.getNPCRegistries().forEach(NPCRegistry::deregisterAll);
+
+        new NPC_1().createNPC().setNPCSkin(Skins.TEO.asSkin()).spawnNPC();
+
         
         ArmorEquipEvent.registerListener(this);
-
-        getLogger().info("Registered 3 Event with 0 Errors");
 
         getLogger().info("Registering commands...");
         getCommand("item").setExecutor(new ItemCommand());
@@ -67,6 +79,9 @@ public class Main extends JavaPlugin {
 
         getLogger().info("Registering items...");
 
+        abilities.put("spawnpack", new SpawnPack());
+        abilities.put("warrior", new WarriorsRevenge());
+
         Armor.toItem(HolyLeggings.getItem()).registerItem();
         Armor.toItem(HolyChestplate.getItem()).registerItem();
         Armor.toItem(HolyHelmet.getItem()).registerItem();
@@ -74,11 +89,16 @@ public class Main extends JavaPlugin {
         BasicSword.getItem().registerItem();
         GodSword.getItem().registerItem();
         BasicWand.getItem().registerItem();
+        DogStick.getItem().setAbility(abilities.get("spawnpack")).registerItem();
+        WarAxe.getItem().setAbility(abilities.get("warrior")).registerItem();
+
         getLogger().info("Registering entities...");
         entities.put("knight", new Knight());
         entities.put("knight_archer", new KnightArcher());
         entities.put("theking", new TheKing());
         entities.put("infectedcitizen", new InfectedCitizen());
+        entities.put("wolf", new Wolf());
+        entities.put("packleader", new PackLeader());
 
         File dataFolder = getDataFolder();
         File songsFolder = new File(dataFolder, "songs");
