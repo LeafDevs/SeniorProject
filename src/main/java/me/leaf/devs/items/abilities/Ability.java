@@ -1,20 +1,17 @@
 package me.leaf.devs.items.abilities;
 
-import me.leaf.devs.Main;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 public abstract class Ability {
 
     private String name;
-    private int manaCost, cooldown;
+    private int manaCost;
+    private long cooldown;
 
     public Ability(String name, int manaCost, int cooldown) {
         this.name = name;
         this.manaCost = manaCost;
-        this.cooldown = cooldown;
+        this.cooldown = (long) (cooldown * 1000L);
     }
 
     public String getName() {
@@ -26,7 +23,7 @@ public abstract class Ability {
     }
 
     public int getCooldown() {
-        return cooldown;
+        return (int) cooldown;
     }
 
     public abstract void execute(PlayerInteractEvent e);

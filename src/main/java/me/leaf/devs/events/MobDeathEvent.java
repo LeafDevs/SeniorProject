@@ -28,6 +28,10 @@ public class MobDeathEvent implements Listener{
             return;
         }
 
+        if(ent.getLastDamageCause() == null) {
+            return;
+        }
+
         if(ent.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK && ent.getKiller() instanceof Player && !(e.getEntity() instanceof ArmorStand)) {
 
             Player plr = ent.getKiller();
@@ -39,7 +43,7 @@ public class MobDeathEvent implements Listener{
                     if(eb == null) {
                         eb=EntityBuilder.def;
                     }
-                    int xp = (int) 10*(eb.getLevel()-pClass.getLevel()+30);
+                    int xp = (int) 5*(eb.getLevel()-pClass.getLevel()+15);
 
                     if(xp <= 0) {
                         xp = 0;

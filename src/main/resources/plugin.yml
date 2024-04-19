@@ -7,6 +7,9 @@ author: Leaf
 load: POSTWORLD
 depends: [NBTAPI, Sentinel, Citizens]
 commands:
+  god:
+    description: Enter god mode.
+    usage: /<command>
   item:
     description: Gives you an item
     usage: /<command> <item>

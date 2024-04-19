@@ -71,7 +71,7 @@ public class WarriorsRevenge extends Ability {
         plr.getPlayer().playSound(e.getPlayer().getLocation(), "entity.generic.explode", 1, 1);
         int finalDmg = totaldmg;
         ents.forEach(ent -> {
-            if(!(ent instanceof CraftItem) || ent == e.getPlayer()) {
+            if(!(ent instanceof CraftItem) || ent != e.getPlayer()) {
                 if(!(ent instanceof Player && !ent.hasMetadata("NPC"))) {
                     ((LivingEntity) ent).damage(finalDmg);
                 }

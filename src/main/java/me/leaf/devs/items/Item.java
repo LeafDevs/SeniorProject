@@ -1,9 +1,6 @@
 package me.leaf.devs.items;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import me.leaf.devs.Main;
 import me.leaf.devs.items.abilities.Ability;
@@ -14,6 +11,7 @@ import de.tr7zw.nbtapi.NBTItem;
 import me.leaf.devs.items.ItemType;
 
 import me.leaf.devs.utils.Rarity;
+import org.jetbrains.annotations.NotNull;
 
 public class Item {
     public Item(String name, int damage, int strength, int crit_damage, int crit_chance, int luck, int health, int defense, int magic_damage, Rarity rarity, ItemStack item, ItemType type, ClassType classType, String... description) {
@@ -113,18 +111,32 @@ public class Item {
         nbt.setString("health", "" + health);
         nbt.setString("defense", "" + defense);
         nbt.setString("magic_damage", "" + magic_damage);
-        nbt.setString("ability", ablty.getName().toLowerCase());
         nbt.setString("UUID", java.util.UUID.randomUUID().toString());
+        if(ablty != null) {
+            nbt.setString("ability", ablty.getName().toLowerCase());
+        }
         
 
-        if(classType.getName() != "All") {
+        if(!Objects.equals(classType.getName(), "All")) {
             nbt.setString("class", classType.getName());
         }
 
         ItemStack newItem = nbt.getItem();
 
+        ItemMeta meta = getMeta(newItem);
+
+        newItem.setItemMeta(meta);
+
+        return newItem;
+
+
+    }
+
+    @NotNull
+    private ItemMeta getMeta(ItemStack newItem) {
         ItemMeta meta = newItem.getItemMeta();
 
+        assert meta != null;
         meta.setDisplayName(rarity.getColor() + name);
 
         List<String> lore = new ArrayList<>();
@@ -166,19 +178,13 @@ public class Item {
         for (int i = 0; i < description.length; i++) {
             lore.add("\u00a77" + description[i]);
         }
-        
+
         lore.add("§7");
         lore.add(rarity.getColor() + rarity.getName());
 
         meta.setLore(lore);
-
-        newItem.setItemMeta(meta);
-
-        return newItem;
-
-
+        return meta;
     }
-
 
 
 }

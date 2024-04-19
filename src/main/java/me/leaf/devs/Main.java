@@ -12,6 +12,7 @@ import me.leaf.devs.entities.NPCS.NPC_1;
 import me.leaf.devs.entities.Skins;
 import me.leaf.devs.items.Armor;
 import me.leaf.devs.items.abilities.Ability;
+import me.leaf.devs.items.abilities.LocationWarp;
 import me.leaf.devs.items.abilities.SpawnPack;
 import me.leaf.devs.items.abilities.WarriorsRevenge;
 import me.leaf.devs.items.armor.boots.HolyBoots;
@@ -19,6 +20,7 @@ import me.leaf.devs.items.armor.chestplate.HolyChestplate;
 import me.leaf.devs.items.armor.helmet.HolyHelmet;
 import me.leaf.devs.items.armor.leggings.HolyLeggings;
 import me.leaf.devs.items.misc.DogStick;
+import me.leaf.devs.items.misc.WarpStaff;
 import me.leaf.devs.items.swords.BasicSword;
 import me.leaf.devs.items.swords.GodSword;
 import me.leaf.devs.items.swords.WarAxe;
@@ -75,12 +77,14 @@ public class Main extends JavaPlugin {
         getCommand("playsong").setExecutor(new PlaySongCommand());
         getCommand("class").setExecutor(new ClassCommand());
         getCommand("fixstats").setExecutor(new FixStatsCommand());
+        getCommand("god").setExecutor(new GodCommand());
 
 
         getLogger().info("Registering items...");
 
         abilities.put("spawnpack", new SpawnPack());
         abilities.put("warrior", new WarriorsRevenge());
+        abilities.put("warp", new LocationWarp());
 
         Armor.toItem(HolyLeggings.getItem()).registerItem();
         Armor.toItem(HolyChestplate.getItem()).registerItem();
@@ -89,6 +93,7 @@ public class Main extends JavaPlugin {
         BasicSword.getItem().registerItem();
         GodSword.getItem().registerItem();
         BasicWand.getItem().registerItem();
+        WarpStaff.getItem().setAbility(abilities.get("warp")).registerItem();
         DogStick.getItem().setAbility(abilities.get("spawnpack")).registerItem();
         WarAxe.getItem().setAbility(abilities.get("warrior")).registerItem();
 

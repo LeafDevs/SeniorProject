@@ -1,6 +1,7 @@
 package me.leaf.devs.entities;
 
 import me.leaf.devs.utils.Equipment;
+import net.citizensnpcs.api.npc.NPCDataStore;
 import net.citizensnpcs.api.trait.trait.Inventory;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

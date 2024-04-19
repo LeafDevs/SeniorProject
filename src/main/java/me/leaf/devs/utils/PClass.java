@@ -34,6 +34,8 @@ public class PClass {
         this.plr = plr;
         this.classType = ClassType.getClassType(classType);
 
+        this.currentHP = health;
+
     }
 
     private int health;
@@ -55,10 +57,11 @@ public class PClass {
     private int alchemy_level;
     private Player plr;
     private ClassType classType;
+    private boolean godmode = false;
 
 
 
-    private int currentHP = health;
+    private int currentHP;
 
     private int currentMana = mana;
 
@@ -140,6 +143,9 @@ public class PClass {
     }
 
     public void addHealth(int health) {
+        if(godmode) {
+            return;
+        }
         this.health += health;
     }
 
@@ -233,6 +239,9 @@ public class PClass {
     }
 
     public void setHP(int HP) {
+        if(godmode) {
+            return;
+        }
         this.currentHP = HP;
     }
 
@@ -240,8 +249,17 @@ public class PClass {
         return this.currentHP;
     }
 
-    public PClass addCooldown(String cd) {
-        cooldowns.put(cd, System.currentTimeMillis());
+    public PClass setGodMode(boolean isGod) {
+        this.godmode = isGod;
+        return this;
+    }
+
+    public boolean isGod() {
+        return this.godmode;
+    }
+
+    public PClass addCooldown(String cd, int seconds) {
+        cooldowns.put(cd, System.currentTimeMillis() + seconds * 1000L);
         return this;
     }
 

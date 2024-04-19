@@ -5,6 +5,7 @@ import me.leaf.devs.Main;
 import me.leaf.devs.items.abilities.Ability;
 import me.leaf.devs.utils.DataUtils;
 import me.leaf.devs.utils.PClass;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -24,11 +25,16 @@ public class ItemAbility implements Listener {
                 PClass plr = DataUtils.getPlayerData(e.getPlayer());
                 Ability ability = Main.abilities.get(nbt.getString("ability").toLowerCase().replace(" ", ""));
                 assert plr != null;
-                int seconds = ability.getCooldown() * 1000;
-                if(plr.getCooldowns().get(ability.getID()) != null) {
-                    long cooldownDone = plr.getCooldowns().get(ability.getID()) + seconds;
-                    if(plr.getCooldowns().get(ability.getID()) < cooldownDone) {
-                        plr.sendMessage("&cYou are to exhausted to use this ability! &c(%s)".replace("%s", "" + ((cooldownDone - System.currentTimeMillis())) / 1000));
+                long seconds = ability.getCooldown();
+
+                if (plr.getCooldowns().containsKey(ability.getID())) {
+                    long cooldownEnd = plr.getCooldowns().get(ability.getID());
+                    long currentTime = System.currentTimeMillis();
+
+                    if (currentTime < cooldownEnd) {
+                        long remainingCooldown = (cooldownEnd - currentTime) / 1000;
+                        plr.sendMessage("&cYou are too exhausted to use this ability! &c(%s)"
+                                .replace("%s", "" + remainingCooldown));
                         return;
                     }
                 }
@@ -37,7 +43,7 @@ public class ItemAbility implements Listener {
                     ability.execute(e);
                     if(ability.getCooldown() != 0) {
                         plr.removeCooldown(ability.getID());
-                        plr.addCooldown(ability.getName().toLowerCase().replace(" ", ""));
+                        plr.addCooldown(ability.getName().toLowerCase().replace(" ", ""), ability.getCooldown());
                     }
                     return;
                 }

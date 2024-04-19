@@ -45,12 +45,13 @@ public class MobDamageEvent implements Listener {
                 PClass pClass = DataUtils.getPlayerData(player);
 
                 org.bukkit.inventory.ItemStack item = player.getInventory().getItemInMainHand();
-                if(item != null || item.getType() != Material.AIR) {
+                if(item != null && item.getType() != Material.AIR && item.getAmount() > 0) {
                     NBTItem nbtItem = new NBTItem(item);
 
                     if(nbtItem.hasKey("class")) {
                         ClassType type = ClassType.getClassType(nbtItem.getString("class"));
-    
+
+                        assert pClass != null;
                         if(pClass.getClassType() != type) {
                             pClass.getPlayer().sendMessage("§cThis item is not for your class! You must be a " + type.getName() + " to use this item!");
                             e.setCancelled(true);
